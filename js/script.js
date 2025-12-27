@@ -1,261 +1,140 @@
-(function($) {
-	
+/**
+ * Main JavaScript - Portfolio
+ * abdomarrok.github.io
+ * 
+ * Handles: Scroll effects, navigation, animations
+ */
+
+(function ($) {
 	"use strict";
-	
-	//Hide Loading Box (Preloader)
+
+	// Remove preload class after page loads
 	function handlePreloader() {
-		if($('.preloader').length){
-			$('.preloader').delay(200).fadeOut(500);
+		setTimeout(function () {
+			$('body').removeClass('preload');
+		}, 100);
+	}
+
+	// Header scroll effect
+	function headerScrollEffect() {
+		var header = $('.main-header');
+		var scrollTop = $(window).scrollTop();
+
+		if (scrollTop > 50) {
+			header.addClass('scrolled');
+		} else {
+			header.removeClass('scrolled');
 		}
 	}
 
-	//Scroll to Top
-	function headerStyle() {
-		if($('.main-header').length){
-			var windowpos = $(window).scrollTop();
-			var scrollLink = $('.scroll-top');
-			if (windowpos >= 250) {
-				scrollLink.addClass('open');
-			} else {
-				scrollLink.removeClass('open');
-			}
+	// Scroll to top button visibility
+	function scrollTopButton() {
+		var scrollTop = $(window).scrollTop();
+		var scrollButton = $('.scroll-top');
+
+		if (scrollTop >= 300) {
+			scrollButton.addClass('open');
+		} else {
+			scrollButton.removeClass('open');
 		}
 	}
-	
-	headerStyle();
 
-	// Scroll to Target
-	if($('.scroll-to-target').length){
-		$(".scroll-to-target").on('click', function() {
+	// Scroll progress indicator
+	function updateScrollProgress() {
+		var scrollTop = $(window).scrollTop();
+		var docHeight = $(document).height() - $(window).height();
+		var scrollPercent = (scrollTop / docHeight);
+
+		$('.scroll-progress').css('transform', 'scaleX(' + scrollPercent + ')');
+	}
+
+	// Scroll to target
+	if ($('.scroll-to-target').length) {
+		$(".scroll-to-target").on('click', function (e) {
+			e.preventDefault();
 			var target = $(this).attr('data-target');
-		   // animate
-		   $('html, body').animate({
-			   scrollTop: $(target).offset().top
-			 }, 1000);
-	
+			$('html, body').animate({
+				scrollTop: $(target).offset().top
+			}, 800);
 		});
 	}
-	
-	//Add One Page nav
-	if($('.scroll-nav').length) {
-		$('.scroll-nav').onePageNav();
-	}
-		
 
-	//Single Item Carousel
-	if ($('.single-item-carousel').length) {
-		$('.single-item-carousel').owlCarousel({
-			loop:true,
-			margin:0,
-			nav:true,
-			smartSpeed: 1000,
-			autoplay: 5000,
-			navText: [ '<span class="fa fa-angle-left"></span>', '<span class="fa fa-angle-right"></span>' ],
-			responsive:{
-				0:{
-					items:1
-				},
-				600:{
-					items:1
-				},
-				1200:{
-					items:1
-				}
-			}
-		});    		
-	}	
-	
-	//Two Item Carousel
-	if ($('.two-item-carousel').length) {
-		$('.two-item-carousel').owlCarousel({
-			loop:true,
-			margin:30,
-			nav:true,
-			smartSpeed: 700,
-			autoplay: 4000,
-			navText: [ '<span class="fa fa-long-arrow-left"></span>', '<span class="fa fa-long-arrow-right"></span>' ],
-			responsive:{
-				0:{
-					items:1
-				},
-				600:{
-					items:1
-				},
-				800:{
-					items:1
-				},
-				1024:{
-					items:2
-				},
-				1200:{
-					items:2
-				}
-			}
-		});    		
-	}
-	
-	
-	//Three Item Carousel
-	if ($('.three-item-carousel').length) {
-		$('.three-item-carousel').owlCarousel({
-			loop:true,
-			margin:30,
-			nav:true,
-			smartSpeed: 700,
-			autoplay: 5000,
-			navText: [ '<span class="fa fa-angle-left"></span>', '<span class="fa fa-angle-right"></span>' ],
-			responsive:{
-				0:{
-					items:1
-				},
-				600:{
-					items:1
-				},
-				800:{
-					items:2
-				},
-				1024:{
-					items:3
-				},
-				1200:{
-					items:3
-				},
-			}
-		});    		
-	}
-		
-	
-	//Four Item Carousel
-	if ($('.four-item-carousel').length) {
-		$('.four-item-carousel').owlCarousel({
-			loop:true,
-			margin:30,
-			nav:true,
-			smartSpeed: 700,
-			autoplay: 4000,
-			navText: [ '<span class="fa fa-angle-left"></span>', '<span class="fa fa-angle-right"></span>' ],
-			responsive:{
-				0:{
-					items:1
-				},
-				600:{
-					items:2
-				},
-				800:{
-					items:2
-				},
-				1024:{
-					items:3
-				},
-				1200:{
-					items:4
-				}
-			}
-		});    		
-	}	
-		
-	//Four Item Carousel
-	if ($('.four-item-fluidcarousel').length) {
-		$('.four-item-fluidcarousel').owlCarousel({
-			loop:true,
-			margin:0,
-			nav:true,
-			smartSpeed: 700,
-			autoplay: 4000,
-			navText: [ '<span class="fa fa-angle-left"></span>', '<span class="fa fa-angle-right"></span>' ],
-			responsive:{
-				0:{
-					items:1
-				},
-				800:{
-					items:2
-				},
-				1024:{
-					items:3
-				},
-				1500:{
-					items:4
-				}
-			}
-		});    		
-	}	
-	
-	//five Item Carousel
-	if ($('.five-item-carousel').length) {
-		$('.five-item-carousel').owlCarousel({
-			loop:true,
-			margin:30,
-			nav:true,
-			smartSpeed: 700,
-			autoplay: 4000,
-			navText: [ '<span class="fa fa-angle-left"></span>', '<span class="fa fa-angle-right"></span>' ],
-			responsive:{
-				0:{
-					items:1
-				},
-				600:{
-					items:2
-				},
-				800:{
-					items:3
-				},
-				1024:{
-					items:4
-				},
-				1200:{
-					items:5
-				}
-			}
-		});    		
-	}	
-
-	//six Item Carousel
-	if ($('.six-item-carousel').length) {
-		$('.six-item-carousel').owlCarousel({
-			loop:true,
-			margin:30,
-			nav:true,
-			smartSpeed: 700,
-			autoplay: 4000,
-			navText: [ '<span class="fa fa-angle-left"></span>', '<span class="fa fa-angle-right"></span>' ],
-			responsive:{
-				0:{
-					items:1
-				},
-				480:{
-					items:2
-				},
-				767:{
-					items:3
-				},
-				900:{
-					items:4
-				},
-				1024:{
-					items:5
-				},
-				1200:{
-					items:6
-				}
-			}
-		});    		
+	// One page navigation
+	if ($('.scroll-nav').length) {
+		$('.scroll-nav').onePageNav({
+			currentClass: 'current',
+			changeHash: false,
+			scrollSpeed: 800,
+			scrollThreshold: 0.5
+		});
 	}
 
-	
-/* ==========================================================================
-   When document is scrolling, do
-   ========================================================================== */
-	
-	$(window).on('scroll', function() {
-		headerStyle();
-	});	
-	
-/* ==========================================================================
-   When document is loading, do
-   ========================================================================== */
-	
-	$(window).on('load', function() {
+	// Animate elements on scroll (Intersection Observer)
+	function initScrollAnimations() {
+		if ('IntersectionObserver' in window) {
+			var observer = new IntersectionObserver(function (entries) {
+				entries.forEach(function (entry) {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('visible');
+						// Optional: stop observing after animation
+						// observer.unobserve(entry.target);
+					}
+				});
+			}, {
+				threshold: 0.1,
+				rootMargin: '0px 0px -50px 0px'
+			});
+
+			document.querySelectorAll('.animate-on-scroll, .timeline-item').forEach(function (el) {
+				observer.observe(el);
+			});
+		} else {
+			// Fallback for older browsers
+			$('.animate-on-scroll, .timeline-item').addClass('visible');
+		}
+	}
+
+	// Lazy load images
+	function initLazyLoading() {
+		if ('IntersectionObserver' in window) {
+			var imageObserver = new IntersectionObserver(function (entries) {
+				entries.forEach(function (entry) {
+					if (entry.isIntersecting) {
+						var img = entry.target;
+						if (img.dataset.src) {
+							img.src = img.dataset.src;
+							img.classList.add('loaded');
+						}
+						imageObserver.unobserve(img);
+					}
+				});
+			});
+
+			document.querySelectorAll('img[loading="lazy"]').forEach(function (img) {
+				imageObserver.observe(img);
+			});
+		}
+	}
+
+	// Initialize on DOM ready
+	$(document).ready(function () {
+		headerScrollEffect();
+		scrollTopButton();
+		updateScrollProgress();
+		initScrollAnimations();
+		initLazyLoading();
+	});
+
+	// On scroll events
+	$(window).on('scroll', function () {
+		headerScrollEffect();
+		scrollTopButton();
+		updateScrollProgress();
+	});
+
+	// On page load
+	$(window).on('load', function () {
 		handlePreloader();
-	});	
+	});
 
 })(window.jQuery);

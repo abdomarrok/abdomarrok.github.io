@@ -1,0 +1,270 @@
+/* Dark Glassmorphism Theme - Production Portfolio */
+
+:root {
+    /* Dark Theme Colors */
+    --bg-primary: #0a0a0a;
+    --bg-secondary: #111111;
+    --bg-tertiary: #1a1a1a;
+    --bg-glass: rgba(255, 255, 255, 0.05);
+    --bg-glass-hover: rgba(255, 255, 255, 0.08);
+    --border-glass: rgba(255, 255, 255, 0.1);
+    --border-glass-hover: rgba(255, 255, 255, 0.2);
+
+    /* Text Colors */
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0a0;
+    --text-muted: #666666;
+    --text-inverse: #0a0a0a;
+
+    /* Brand Colors - Updated for better visibility on dark */
+    --color-primary: #4d9375;
+    --color-primary-dark: #3a7058;
+    --color-primary-light: #5fa584;
+    --color-accent: #e54761;
+
+    /* Glow Effects */
+    --glow-primary: rgba(77, 147, 117, 0.3);
+    --glow-accent: rgba(229, 71, 97, 0.3);
+
+    /* Spacing Scale - T-shirt sizes */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 24px;
+    --space-6: 32px;
+    --space-8: 48px;
+    --space-10: 64px;
+    --space-12: 80px;
+    --space-16: 128px;
+
+    /* Typography */
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    --font-family-headings: 'Inter', system-ui, sans-serif;
+    --line-height-tight: 1.2;
+    --line-height-normal: 1.6;
+    --line-height-relaxed: 1.8;
+    --letter-spacing-tight: -0.02em;
+    --letter-spacing-normal: 0;
+    --letter-spacing-wide: 0.05em;
+
+    /* Font Sizes */
+    --text-xs: 0.75rem;
+    /* 12px */
+    --text-sm: 0.875rem;
+    /* 14px */
+    --text-base: 1rem;
+    /* 16px */
+    --text-lg: 1.125rem;
+    /* 18px */
+    --text-xl: 1.25rem;
+    /* 20px */
+    --text-2xl: 1.5rem;
+    /* 24px */
+    --text-3xl: 1.875rem;
+    /* 30px */
+    --text-4xl: 2.25rem;
+    /* 36px */
+    --text-5xl: 3rem;
+    /* 48px */
+    --text-6xl: 3.75rem;
+    /* 60px */
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.5);
+    --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.6);
+    --shadow-glow: 0 0 40px var(--glow-primary);
+
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-2xl: 24px;
+    --radius-full: 9999px;
+
+    /* Transitions */
+    --transition-fast: 0.15s ease;
+    --transition-base: 0.3s ease;
+    --transition-slow: 0.5s ease;
+    --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dark Theme Base Styles */
+body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-family);
+    line-height: var(--line-height-normal);
+}
+
+/* Glass Card Component */
+.glass-card {
+    background: var(--bg-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-glass);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    transition: all var(--transition-base) var(--transition-smooth);
+}
+
+.glass-card:hover {
+    background: var(--bg-glass-hover);
+    border-color: var(--border-glass-hover);
+    box-shadow: var(--shadow-xl), var(--shadow-glow);
+    transform: translateY(-4px);
+}
+
+/* Glass Card Variants */
+.glass-card-solid {
+    background: var(--bg-secondary);
+    backdrop-filter: none;
+    border: 1px solid var(--border-glass);
+}
+
+.glass-card-subtle {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Typography Overrides for Dark Theme */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-family-headings);
+    color: var(--text-primary);
+    line-height: var(--line-height-tight);
+    letter-spacing: var(--letter-spacing-tight);
+    font-weight: 600;
+}
+
+h1 {
+    font-size: var(--text-6xl);
+}
+
+h2 {
+    font-size: var(--text-4xl);
+}
+
+h3 {
+    font-size: var(--text-2xl);
+}
+
+h4 {
+    font-size: var(--text-xl);
+}
+
+h5 {
+    font-size: var(--text-lg);
+}
+
+h6 {
+    font-size: var(--text-base);
+}
+
+p {
+    color: var(--text-secondary);
+    line-height: var(--line-height-normal);
+}
+
+a {
+    color: var(--color-primary-light);
+    transition: color var(--transition-fast);
+}
+
+a:hover {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+/* Update existing sections for dark theme */
+.page-wrapper {
+    background: var(--bg-primary);
+}
+
+.feature,
+.main-demo {
+    background: var(--bg-primary);
+}
+
+.banner {
+    background-color: var(--bg-secondary) !important;
+}
+
+/* Skills cards dark theme */
+.skill-card {
+    background: var(--bg-glass);
+    border: 1px solid var(--border-glass);
+    backdrop-filter: blur(12px);
+    transition: all var(--transition-base);
+}
+
+.skill-card:hover {
+    background: var(--bg-glass-hover);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 20px var(--glow-primary);
+    transform: translateY(-2px);
+}
+
+/* Timeline dark theme */
+.timeline-content {
+    background: var(--bg-glass);
+    border: 1px solid var(--border-glass);
+    backdrop-filter: blur(12px);
+    padding: var(--space-6);
+    border-radius: var(--radius-lg);
+}
+
+.timeline-dot {
+    background: var(--color-primary);
+    box-shadow: 0 0 20px var(--glow-primary);
+}
+
+/* Dark theme for certifications */
+.card {
+    background: var(--bg-glass);
+    border: 1px solid var(--border-glass) !important;
+    backdrop-filter: blur(12px);
+    transition: all var(--transition-base);
+}
+
+.card:hover {
+    background: var(--bg-glass-hover);
+    border-color: var(--color-primary) !important;
+    box-shadow: 0 0 20px var(--glow-primary);
+    transform: translateY(-4px);
+}
+
+.card-title {
+    color: var(--text-primary);
+}
+
+.card-subtitle,
+.text-muted {
+    color: var(--text-secondary) !important;
+}
+
+/* Section backgrounds */
+.py-5,
+.feature.py-5 {
+    background: var(--bg-primary);
+}
+
+.bg-light {
+    background: var(--bg-secondary) !important;
+}
+
+/* Update text colors */
+.text-center p {
+    color: var(--text-secondary);
+}
+
+.sec-title h2 {
+    color: var(--text-primary);
+}
