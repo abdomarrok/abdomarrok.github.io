@@ -376,16 +376,16 @@ You work across **two distinct technology domains**:
 
 | Technology | Maturity Level | Production Ready | Usage |
 |------------|----------------|------------------|-------|
-| Next.js 15 | Very Stable | ✅ Yes | Active (chpub_next, projects) |
-| React 19 | Stable | ✅ Yes | Active (all web projects) |
-| TypeScript | Very Stable | ✅ Yes | Active (NestJS, Next.js) |
+| Next.js 15 | Very Stable | ✅ Yes | ACTIVE (Portfolio v2) |
+| React 19 | Stable | ✅ Yes | ACTIVE (Portfolio v2) |
+| TypeScript | Very Stable | ✅ Yes | ACTIVE (Portfolio v2) |
 | NestJS 11 | Very Stable | ✅ Yes | Active (immo_lamis backend) |
-| Prisma 6.x | Very Stable | ✅ Yes | Active (modern backends) |
-| TailwindCSS 4 | Stable | ✅ Yes | Active (styling) |
+| Prisma 6.x | Very Stable | ✅ Yes | ACTIVE (Portfolio v2) |
+| TailwindCSS 4 | Stable | ✅ Yes | ACTIVE (Portfolio v2) |
 | Three.js | Very Stable | ✅ Yes | Active (3D configurators) |
 | JavaFX 17+ | Very Stable | ✅ Yes | Active (desktop apps) |
 | Spring Boot 3.x | Very Stable | ✅ Yes | Active (desktop backends) |
-| PostgreSQL | Very Stable | ✅ Yes | Active (primary DB) |
+| PostgreSQL | Very Stable | ✅ Yes | ACTIVE (Portfolio v2) |
 
 ---
 

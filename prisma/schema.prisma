@@ -1,0 +1,103 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Project {
+  id              String   @id @default(cuid())
+  title           String
+  description     String   @db.Text
+  longDescription String?  @db.Text
+  
+  // Visual
+  imageUrl        String?
+  thumbnailUrl    String?
+  
+  // Categorization
+  categoryId      String
+  category        Category @relation(fields: [categoryId], references: [id])
+  technologies    String[] // Prisma supports scalar lists on PostgreSQL
+  
+  // Content
+  highlights      String[] // Key features
+  metrics         Json?    // { "lines_of_code": 5000, "team_size": 3 }
+  
+  // Links
+  liveUrl         String?
+  githubUrl       String?
+  demoUrl         String?
+  
+  // Status
+  featured        Boolean  @default(false)
+  published       Boolean  @default(true)
+  order           Int      @default(0) // Display order
+  
+  // Timestamps
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Category {
+  id       String    @id @default(cuid())
+  name     String    @unique // "Desktop", "Web", "Full-Stack", "3D Graphics"
+  slug     String    @unique
+  color    String?   // Color badge: #FF5733
+  projects Project[]
+}
+
+model Skill {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  category    String   // "Frontend", "Backend", "Database", "Tools", "3D"
+  proficiency Int      // 1-5 scale
+  icon        String?
+  description String?
+  color       String?
+  order       Int      @default(0)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Experience {
+  id          String    @id @default(cuid())
+  title       String
+  company     String?
+  type        String    // "job", "education", "achievement"
+  description String    @db.Text
+  startDate   DateTime
+  endDate     DateTime?
+  current     Boolean   @default(false)
+  
+  skills      String[]  // Related skills
+  order       Int       @default(0)
+  
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String
+  message   String   @db.Text
+  read      Boolean  @default(false)
+  
+  createdAt DateTime @default(now())
+}
+
+model AdminUser {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String   // bcrypted
+  name      String?
+  role      String   @default("editor") // "admin", "editor"
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
