@@ -24,8 +24,7 @@ export default function AdminProjectsPage() {
   }, [])
 
   const handleDelete = async (id: string) => {
-    console.log("Delete button clicked for ID:", id);
-    // if (!window.confirm("Are you sure you want to delete this project?")) return;
+    if (!window.confirm("Are you sure you want to delete this project?")) return;
 
     try {
       const res = await fetch(`/api/admin/projects/${id}`, {

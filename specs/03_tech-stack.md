@@ -52,12 +52,13 @@ You work across **two distinct technology domains**:
 
 ### Frontend - Web Applications
 
-#### **Next.js 15** (Primary Framework)
+#### **Next.js 15/16** (Primary Framework)
 - **React 19** - UI framework
 - **TypeScript** - Type-safe development
 - **Tailwind CSS 4** - Utility-first styling
 - **Next.js App Router** - File-based routing
 - **Server Components** - Performance optimization
+- **Async Route Params** - Required pattern for Next.js 15+ (awaiting params in APIs and Server Components)
 
 #### **3D Graphics & Animation**
 - **Three.js** - 3D rendering library
