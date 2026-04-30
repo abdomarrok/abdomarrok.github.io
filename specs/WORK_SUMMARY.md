@@ -1,340 +1,289 @@
-# Portfolio Project - Work Summary & Current Status
+# Portfolio Project - Work Summary & Final Status
 
-**Date:** April 30, 2026  
-**Project:** Marrok Abderrahmane Portfolio Modernization  
-**Status:** Planning Complete - Ready for Development
+**Last Updated:** April 30, 2026  
+**Project:** Marrok Abderrahmane Portfolio — Next.js 16 Full-Stack with Admin CMS  
+**Status:** ✅ LIVE IN PRODUCTION
 
----
-
-## 📋 Work Completed
-
-### 1. **Project Analysis & Discovery**
-- ✅ Analyzed existing portfolio website (jQuery + Bootstrap + vanilla CSS)
-- ✅ Examined GitHub repositories and identified private projects
-- ✅ Discovered real tech stack in use:
-  - **Desktop:** JavaFX 17+, Spring Boot, MVVM
-  - **Web:** React 19, Next.js 15, TypeScript, Tailwind CSS, Three.js
-  - **Backend:** NestJS, Prisma, PostgreSQL
-  - **AI:** Google GenAI integration
-  - **3D Graphics:** Three.js + React Three Fiber
-
-### 2. **Documentation Created**
-
-#### `mission.md` - Portfolio Strategy
-- Repositioned from "Desktop Engineer" → "Full-Stack Engineer"
-- Defined core values: Technical Excellence, Platform Versatility, Type-Safe Development
-- Set business goals and success metrics
-- Aligned mission with full-stack capabilities
-
-#### `tech-stack.md` - Technology Inventory (Comprehensive)
-- **Dual Specialization section:** Desktop vs Web stacks
-- Detailed technology breakdown:
-  - Desktop stack (JavaFX, Spring Boot, MySQL, SQLite)
-  - Web stack (React, Next.js, TypeScript, Tailwind, NestJS, PostgreSQL)
-  - Advanced features (Three.js, Google GenAI, Recharts)
-  - Build tools & DevOps (Git, GitHub Actions, Vercel, Docker)
-- Project tech stack matrix comparing 4 projects
-- Performance targets & security standards
-- 12-month technology evolution roadmap
-- Future stack enhancements (Phases 1-3)
-
-#### `PRD.md` - Product Requirements Document
-- **Executive Summary:** Full-stack engineering positioning
-- **Target Users:** Enterprise CTOs, startups, modernization projects, 3D companies
-- **Feature Specifications:**
-  - Enhanced hero section with tech badges
-  - Projects showcase with category filtering
-  - Skills section organized by platform domain (Desktop/Web/Backend/3D/Testing)
-  - Experience timeline
-  - Contact form with backend integration
-- **Acceptance Criteria:** 10+ checkboxes for success
-- **Success Metrics:** 8-15 leads/month, 150+ views/month
-- **Non-functional Requirements:** Security, scalability, performance
-
-#### `roadmap.md` - Development Roadmap (12 Months)
-- **Phase 1 (4 weeks):** Foundation & Optimization
-  - Performance audit, SEO, accessibility, analytics
-- **Phase 2 (4 weeks):** Content Expansion
-  - Blog system, case studies, testimonials, SEO enhancements
-- **Phase 3 (4 weeks):** UX Enhancement
-  - Dark mode, videos, interactive features, mobile optimization
-- **Phase 4 (4 weeks):** Backend & Functionality
-  - CMS, contact forms, email system
-- **Phase 5 (4 weeks):** Advanced Features
-  - Case studies, AI features, community elements, content
-- **Phase 6 (4 weeks):** Scale & Performance
-  - CDN, internationalization, monetization
-
-#### `PORTFOLIO_STACK_REVIEW.md` - Current vs. Modern Analysis
-- **Gap Analysis:** Current tech (jQuery) vs professional use (React/TypeScript)
-- **Key Issues Identified:**
-  - Technology mismatch (jQuery vs React)
-  - Styling disconnect (Bootstrap vs Tailwind)
-  - No type safety (JS vs TypeScript)
-  - Missing build pipeline
-  - Outdated interactivity patterns
-  - No 3D showcase
-  - No AI features
-  - Performance not optimized
-- **Three Options Presented:**
-  - **Option A:** Incremental Upgrade (2-3 weeks)
-  - **Option B:** React + Vite Rewrite ⭐ (3-4 weeks, Recommended)
-  - **Option C:** Next.js Full-Stack (4-6 weeks, Maximum Showcase)
-- **Feature Comparison Matrix:** All three options compared
-- **Recommendation:** Option B for balanced effort/impact, or Option C with admin panel
-
-#### `ADMIN_PANEL_PLAN.md` - Full-Stack Admin Implementation
-- **Architecture Overview:** Public portfolio + Protected admin dashboard
-- **Database Schema** (6 tables):
-  - `projects` - Portfolio projects with full metadata
-  - `categories` - Project categorization
-  - `skills` - Technical skills with proficiency levels
-  - `experience` - Timeline (jobs, education, achievements)
-  - `messages` - Contact form submissions
-  - `admin_users` - Admin account management
-- **Admin Panel Features:**
-  - Dashboard with quick stats & recent messages
-  - Projects management (CRUD, featured, drafts, ordering)
-  - Skills management (proficiency levels, categories)
-  - Experience timeline editor
-  - Contact messages viewer
-  - Settings panel
-  - Analytics page (views, sources, top projects)
-- **Authentication System:** JWT tokens with middleware
-- **API Routes Architecture:** 20+ endpoints for all operations
-- **File Structure:** Complete Next.js project organization
-- **7-Phase Implementation Roadmap:**
-  - Phase 1: Setup & Database
-  - Phase 2: Public Pages
-  - Phase 3: Authentication
-  - Phase 4: Admin API
-  - Phase 5: Admin UI
-  - Phase 6: Testing & Polish
-  - Phase 7: Deployment
-- **Full Tech Stack:** Next.js 15, React 19, TypeScript, Tailwind, Prisma
-- **Security & Best Practices:** Auth flow, rate limiting, validation, backups
+**Live URLs:**
+- Public Portfolio: https://marrok.netlify.app
+- Admin Panel: https://marrok.netlify.app/admin
+- Custom Domain: https://www.marrok.org (DNS pending)
 
 ---
 
-## 🎯 Key Discoveries
+## ✅ Everything Built & Deployed
 
-### About Your Expertise
-You are a **rare full-stack engineer** combining:
-- ✅ Traditional enterprise desktop (JavaFX, Spring Boot)
-- ✅ Modern web (React 19, Next.js 15)
-- ✅ 3D graphics (Three.js, React Three Fiber)
-- ✅ AI integration (Google GenAI)
-- ✅ Backend mastery (NestJS, Prisma)
-- ✅ Type-safe development (TypeScript everywhere)
+### Phase 1 — Foundation
+- [x] Next.js 16.2.4 + React 19 + TypeScript project
+- [x] Tailwind CSS 4 with custom design tokens (primary: emerald, secondary: blue, accent: orange)
+- [x] Prisma 6 ORM with PostgreSQL (Neon serverless)
+- [x] Full database schema with 8 tables
+- [x] Database seed with portfolio data
+- [x] Google OAuth via NextAuth.js v4 (passwordless login)
+- [x] `proxy.ts` (Next.js 16 middleware, replaces deprecated `middleware.ts`)
 
-### Current Portfolio Problems
-- ❌ Built with 2010s technology (jQuery) while you use 2020s+ (React)
-- ❌ Doesn't reflect actual capabilities
-- ❌ Looks outdated for someone showcasing modern expertise
-- ❌ Visitors see outdated tech choices
-- ❌ Missing 3D showcase capability
-- ❌ Missing AI integration showcase
-- ❌ No dynamic content management
+### Phase 2 — Public Portfolio Pages
+- [x] **Navbar** — sticky, blur on scroll, mobile hamburger menu, CV download link
+- [x] **Hero** — animated gradient headline, tech stack pills, CTA buttons
+- [x] **Projects Grid** — bento layout from DB, category badges, tech tags, links to detail pages
+- [x] **Skills Section** — grouped by category, fetched from DB
+- [x] **Experience Timeline** — alternating layout, fetched from DB
+- [x] **Certifications** — static section (Coursera, NVIDIA, Udacity, Blue Array)
+- [x] **Contact Section** — working form → posts to `/api/public/contact` → stored in DB
+- [x] **Project Detail Page** — `/projects/[id]` with image, tech stack, highlights, links
+- [x] **Footer** — copyright
 
----
+### Phase 3 — Google Authentication
+- [x] Google OAuth 2.0 via NextAuth.js
+- [x] Only `marrokmar@gmail.com` allowed (ADMIN_EMAILS env var)
+- [x] JWT session strategy (compatible with serverless proxy)
+- [x] Login page at `/admin/login` with "Continue with Google" button
+- [x] Protected routes via `proxy.ts` using `getToken` from `next-auth/jwt`
+- [x] Auto-redirect `/admin` → `/admin/dashboard`
 
-## 🚀 Recommended Solution
-
-**Next.js 15 Full-Stack with Admin Panel** ⭐
-- Framework: Next.js 15 + React 19 + TypeScript + Tailwind CSS 4
-- **Authentication:** Google OAuth (Simplified, no password management)
-- **Database:** SQLite (Lightweight, zero-config, perfect for portfolio)
-- **Admin Features:**
-  - Add/edit/delete projects with images
-  - Manage skills and proficiency levels
-  - Edit experience timeline
-  - View contact messages
-  - Analytics dashboard
-  - Portfolio settings
-- **Timeline:** 6-8 weeks of focused development
-- **Effort:** 150-200 hours
-- **Result:** Production-grade portfolio + CMS
-
----
-
-## 📊 Specifications Summary
-
-### Database Tables (SQLite)
+### Phase 4 — Admin API Routes (20+ endpoints)
 ```
-1. projects - Portfolio projects (title, description, images, links, tech tags)
-2. categories - Project categories (Desktop, Web, Full-Stack, 3D)
-3. skills - Technical skills (name, proficiency, category, icon)
-4. experience - Timeline items (jobs, education, achievements)
-5. messages - Contact form submissions (name, email, message, read status)
-6. admin_users - Admin accounts (email, password hash, role)
+/api/admin/projects          GET, POST
+/api/admin/projects/[id]     GET, PATCH, PUT, DELETE
+/api/admin/skills            GET, POST
+/api/admin/skills/[id]       PATCH, DELETE
+/api/admin/experience        GET, POST
+/api/admin/experience/[id]   PATCH, DELETE
+/api/admin/messages          GET
+/api/admin/messages/[id]     PATCH, DELETE
+/api/admin/settings          GET, PATCH
+/api/admin/upload            POST (image upload → /public/uploads/)
+
+/api/public/projects         GET
+/api/public/skills           GET
+/api/public/experience       GET
+/api/public/contact          POST
+/api/auth/[...nextauth]      NextAuth handlers
 ```
 
-### Admin Panel Pages (7)
-1. **Dashboard** - Overview, stats, recent messages
-2. **Projects** - CRUD projects, featured/draft status, ordering
-3. **Skills** - Manage technical skills with proficiency levels
-4. **Experience** - Edit timeline (jobs, education, achievements)
-5. **Messages** - View contact form submissions
-6. **Settings** - Portfolio settings, admin users, social links
-7. **Analytics** - Traffic stats, project views, top sources
+### Phase 5 — Admin Dashboard UI (6 pages)
+- [x] **Dashboard** — real DB stats (projects, skills, messages, unread), recent messages list, quick actions
+- [x] **Projects** — table with category badge, status, edit/delete; links to create/edit pages
+- [x] **Skills** — grouped by category, star ratings, add/edit modal, delete
+- [x] **Experience** — timeline table, add/edit modal with date pickers and "current" toggle
+- [x] **Messages** — expandable rows, mark read/unread, reply by email, delete
+- [x] **Settings** — available for projects toggle, show contact form toggle, social links
 
-### API Endpoints (20+)
-- Auth: login, logout, verify
-- Admin CRUD: projects, skills, experience, messages, settings, uploads
-- Public: get projects, skills, experience, contact form submission
+### Phase 6 — Image Upload
+- [x] Drag-and-drop upload zone in ProjectForm
+- [x] Click to select file
+- [x] Instant preview with change/remove overlay
+- [x] POST to `/api/admin/upload` → saves to `/public/uploads/` with UUID filename
+- [x] Validation: 2 MB max, image types only
+- [x] Manual URL input fallback (paste any external URL)
 
-### Public Pages (6+)
-- Home (Hero, featured projects)
-- Projects listing with filters
-- Individual project details
-- About/Skills section
-- Experience timeline
-- Contact form
-
----
-
-## ✨ Technology Stack (Final)
-
-### Frontend
-- **Next.js 15** - Full-stack React framework
-- **React 19** - UI library
-- **TypeScript** - Type safety
-- **Tailwind CSS 4** - Styling
-- **Framer Motion** - Animations
-- **Lucide React** - Icons
-- **React Hook Form** - Forms
-- **Zod** - Validation
-
-### Backend
-- **Next.js API Routes** - Serverless backend
-- **Prisma ORM** - Database abstraction
-- **SQLite** - Lightweight database
-- **Google OAuth** - Authentication
-- **NextAuth.js** - Auth handling
-
-### Database
-- **SQLite** - File-based, zero-config
-- **Prisma** - Type-safe ORM with migrations
-- **6 tables** - Fully normalized schema
-
-### DevOps
-- **Vercel** - Hosting with auto-deploy
-- **GitHub** - Source control
-- **GitHub Actions** - CI/CD
-- **Google OAuth Console** - OAuth setup
-
-### Testing & Quality
-- **Jest** - Unit testing
-- **Playwright** - E2E testing
-- **ESLint** - Code linting
-- **Prettier** - Code formatting
+### Phase 7 — Deployment (Netlify)
+- [x] `netlify.toml` with `@netlify/plugin-nextjs`
+- [x] Neon serverless PostgreSQL (free tier) as production database
+- [x] All environment variables set in Netlify dashboard
+- [x] Google OAuth callback URIs updated for production
+- [x] Auto-deploy on push to `main` branch
 
 ---
 
-## 📁 Deliverables Created
+## 🗄️ Database Schema (PostgreSQL / Neon)
 
-Inside `/specs/` folder:
+```prisma
+model User              // NextAuth — Google OAuth user
+model Account           // NextAuth — OAuth account link
+model Session           // NextAuth — session (database strategy)
+model VerificationToken // NextAuth — email verification
 
-| File | Purpose | Status |
-|------|---------|--------|
-| `mission.md` | Strategic positioning & vision | ✅ Complete |
-| `tech-stack.md` | Full technology inventory | ✅ Complete |
-| `PRD.md` | Product requirements | ✅ Complete |
-| `roadmap.md` | 12-month dev roadmap | ✅ Complete |
-| `PORTFOLIO_STACK_REVIEW.md` | Current vs modern analysis | ✅ Complete |
-| `ADMIN_PANEL_PLAN.md` | Admin CMS architecture | ✅ Complete |
+model Project          // Portfolio projects
+model Category         // Desktop / Web / Full-Stack / 3D Graphics
+model Skill            // Technical skills with proficiency (1-5)
+model Experience       // Career/education timeline
+model ContactMessage   // Contact form submissions
+model Setting          // Key-value store for portfolio settings
+```
 
-**Total Documentation:** ~8,000 lines of comprehensive specifications
-
----
-
-## 🎯 Next Steps (Ready to Code)
-
-### Option 1: Quick Implementation
-Start building the Next.js + SQLite + Google OAuth portfolio immediately
-
-### Option 2: Review First
-Review the admin panel plan and make adjustments before coding
-
-### Option 3: Start with Phase 1
-Begin with setup phase (Next.js + Tailwind + Prisma + SQLite)
+**Note:** `technologies`, `highlights`, `skills` arrays are stored as JSON strings
+(SQLite migration origin — compatible with PostgreSQL).
 
 ---
 
-## 📈 Expected Outcomes
+## ⚙️ Tech Stack (Final, As Built)
 
-After 6-8 weeks of development:
-
-✅ Modern portfolio showcasing both desktop & web expertise  
-✅ Admin panel to manage all portfolio content  
-✅ Google authentication (secure, passwordless)  
-✅ SQLite database (lightweight, portable)  
-✅ Full-stack TypeScript (type-safe end-to-end)  
-✅ Deployed to Vercel (auto-deploy from git)  
-✅ Production-ready code  
-✅ SEO optimized  
-✅ Mobile responsive  
-✅ Foundation for future features  
-
----
-
-## 💡 Key Advantages of This Approach
-
-1. **Aligns with Reality:** Uses exact tech from your professional work
-2. **Shows Expertise:** Visitors see modern, clean code
-3. **Scalable:** Can add features later (blog, e-commerce, etc.)
-4. **Maintainable:** Component-based, well-organized structure
-5. **Developer Experience:** Hot reload, automatic optimization
-6. **Easy Deploy:** Vercel + GitHub integration
-7. **Type-Safe:** TypeScript everywhere (frontend, backend, database)
-8. **Lightweight:** SQLite means no external database costs
-9. **Secure:** Google OAuth is industry standard
-10. **Impressive:** Shows you practice what you preach
+| Layer | Technology |
+|-------|-----------|
+| Framework | Next.js 16.2.4 (Turbopack) |
+| UI | React 19.2.4 + TypeScript |
+| Styling | Tailwind CSS 4 |
+| Animations | Framer Motion 12 |
+| Icons | Lucide React 1.11.0 |
+| Forms | React Hook Form 7 + Zod 4 |
+| Auth | NextAuth.js v4 + Google OAuth |
+| ORM | Prisma 6.19.3 |
+| Database | PostgreSQL via Neon (production) |
+| Hosting | Netlify (with `@netlify/plugin-nextjs`) |
+| Source Control | GitHub (`abdomarrok/abdomarrok.github.io`) |
+| CI/CD | Netlify auto-deploy on git push |
 
 ---
 
-## 📞 Support Available For
+## 🔐 Authentication & Security
 
-Once you're ready to code, I can help with:
-
-- ✅ Next.js 15 + TypeScript setup
-- ✅ Tailwind CSS configuration
-- ✅ Prisma schema & SQLite setup
-- ✅ Google OAuth implementation
-- ✅ Component architecture design
-- ✅ Admin dashboard development
-- ✅ API routes creation
-- ✅ Deployment to Vercel
-- ✅ Testing strategy & implementation
-- ✅ Performance optimization
-- ✅ SEO implementation
-- ✅ Troubleshooting & debugging
+- **Provider:** Google OAuth 2.0 only (no passwords)
+- **Allowed email:** `marrokmar@gmail.com` (configurable via `ADMIN_EMAILS`)
+- **Session:** JWT stored in HTTP-only cookie
+- **Protected routes:** `/admin/*` and `/api/admin/*` via `proxy.ts`
+- **Unauthorized redirect:** → `/admin/login`
+- **API auth:** Every admin API route calls `getServerSession(authOptions)`
+- **Input validation:** Zod on client forms, basic validation on API routes
+- **SQL injection:** Prevented by Prisma parameterized queries
+- **File uploads:** Type + size validation (images only, max 2 MB)
 
 ---
 
-## 📝 Document Index
+## 🌍 Environment Variables
 
-**Complete Specifications Available In:**
-- `specs/mission.md` - Strategy & vision
-- `specs/tech-stack.md` - Technology choices
-- `specs/PRD.md` - Feature requirements
-- `specs/roadmap.md` - Development timeline
-- `specs/PORTFOLIO_STACK_REVIEW.md` - Analysis & options
-- `specs/ADMIN_PANEL_PLAN.md` - Admin CMS details (THIS IS THE MAIN PLAN)
+```env
+# Production (Netlify)
+DATABASE_URL="postgresql://...neon.tech/neondb?sslmode=require"
+GOOGLE_CLIENT_ID="409588541725-...apps.googleusercontent.com"
+GOOGLE_CLIENT_SECRET="GOCSPX-..."
+NEXTAUTH_SECRET="df57bb..."
+NEXTAUTH_URL="https://marrok.netlify.app"
+ADMIN_EMAILS="marrokmar@gmail.com"
 
-**Summary:** This document ties everything together.
-
----
-
-## ✅ Status: Ready for Development Phase
-
-All planning, analysis, and specification work is **complete**.
-
-**Decision Made:** Next.js 15 Full-Stack with SQLite + Google OAuth  
-**Timeline:** 6-8 weeks  
-**Effort:** 150-200 hours  
-**Ready to Start:** YES ✅
+# Local (.env)
+DATABASE_URL="postgresql://...neon.tech/neondb?sslmode=require"
+NEXTAUTH_URL="http://localhost:3000"
+```
 
 ---
 
-**Next Action:** Confirm to proceed with Phase 1 (Setup) or request any clarifications.
+## 📁 Project Structure
+
+```
+src/
+├── app/
+│   ├── page.tsx                          # Homepage (force-dynamic)
+│   ├── layout.tsx                        # Root layout + metadata
+│   ├── globals.css                       # Tailwind + Google Fonts import
+│   ├── admin/
+│   │   ├── page.tsx                      # Redirect → /admin/dashboard
+│   │   ├── login/page.tsx                # Google OAuth login page
+│   │   └── (protected)/
+│   │       ├── layout.tsx                # Admin shell + sidebar
+│   │       ├── dashboard/page.tsx        # Real-time stats dashboard
+│   │       ├── projects/page.tsx         # Projects table
+│   │       ├── projects/new/page.tsx     # Create project form
+│   │       ├── projects/edit/[id]/       # Edit project form
+│   │       ├── skills/page.tsx           # Skills management
+│   │       ├── experience/page.tsx       # Experience management
+│   │       ├── messages/page.tsx         # Messages inbox
+│   │       └── settings/page.tsx        # Portfolio settings
+│   ├── api/
+│   │   ├── auth/[...nextauth]/route.ts
+│   │   ├── admin/projects/route.ts + [id]/route.ts
+│   │   ├── admin/skills/route.ts + [id]/route.ts
+│   │   ├── admin/experience/route.ts + [id]/route.ts
+│   │   ├── admin/messages/route.ts + [id]/route.ts
+│   │   ├── admin/settings/route.ts
+│   │   ├── admin/upload/route.ts
+│   │   └── public/projects|skills|experience|contact/route.ts
+│   └── projects/[id]/page.tsx            # Public project detail
+│
+├── components/
+│   ├── Navbar.tsx
+│   ├── Hero.tsx
+│   ├── admin/
+│   │   ├── AdminSidebar.tsx
+│   │   └── ProjectForm.tsx               # With drag-and-drop image upload
+│   ├── projects/
+│   │   ├── ProjectGrid.tsx
+│   │   └── ProjectCard.tsx
+│   ├── skills/SkillsSection.tsx
+│   ├── experience/ExperienceTimeline.tsx
+│   ├── certifications/CertificationsSection.tsx
+│   ├── contact/ContactSection.tsx
+│   └── providers/AuthProvider.tsx
+│
+├── lib/
+│   ├── auth.ts       # NextAuth config (Google provider, JWT strategy)
+│   ├── prisma.ts     # Prisma client singleton
+│   ├── data.ts       # Public data fetchers
+│   └── utils.ts      # cn() helper
+│
+└── proxy.ts          # Next.js 16 auth guard (replaces middleware.ts)
+
+prisma/
+├── schema.prisma     # PostgreSQL schema
+├── seed.ts           # Portfolio seed data
+└── migrations/       # Migration history
+
+public/
+├── uploads/          # Admin-uploaded project images
+└── images/           # Static assets
+
+netlify.toml          # Netlify deployment config
+```
+
+---
+
+## 🐛 Key Issues Resolved During Development
+
+| Issue | Root Cause | Fix |
+|-------|-----------|-----|
+| `middleware.ts` deprecation warning | Next.js 16 renamed it to `proxy.ts` | Migrated to `proxy.ts` |
+| `technologies.map is not a function` | SQLite stores arrays as JSON strings | Added `JSON.parse()` in components |
+| Google Fonts build failure | Network blocked in Algeria during build | Switched to CSS `@import` |
+| `redirect_uri_mismatch` (×2) | Wrong callback URI in Google Console | Added correct HTTPS URIs |
+| Vercel persistent 404 | Wrong Vercel project URL being visited + possible framework preset issue | Switched to Netlify |
+| `DATABASE_URL="npm"` | Accidental .env corruption | Restored correct Neon URL |
+| Prisma startup crash on Vercel | `DIRECT_URL` env var referenced but not set | Removed `directUrl` from schema |
+| `channel_binding=require` | Not supported in some Neon configs | Removed from connection string |
+| `withAuth` proxy incompatibility | next-auth middleware HOC incompatible with Next.js 16 proxy | Replaced with `getToken` |
+
+---
+
+## 📊 Seeded Data (Production)
+
+| Table | Count | Content |
+|-------|-------|---------|
+| Categories | 3 | Desktop, Web, Full-Stack |
+| Projects | 5 | GstockDz ERP, HK-Wireguard, School Manager, StoryForge, Payment Generator |
+| Skills | 12 | Java, JavaFX, Spring Boot, MVVM, MySQL, SQLite, Security, React, Next.js, TypeScript, etc. |
+| Experience | 5 | Engineer degree, self-employed, Master's, Bachelor's, Architecture |
+
+---
+
+## 🔗 Google OAuth Configuration
+
+**Authorized redirect URIs in Google Cloud Console:**
+```
+http://localhost:3000/api/auth/callback/google    ← local dev
+https://marrok.netlify.app/api/auth/callback/google  ← production
+https://www.marrok.org/api/auth/callback/google   ← custom domain
+```
+
+---
+
+## 🚀 What's Production-Ready
+
+- ✅ Public portfolio (Hero, Projects, Skills, Experience, Certifications, Contact)
+- ✅ Project detail pages with full metadata
+- ✅ Admin panel with Google OAuth
+- ✅ Full CRUD for all content types
+- ✅ Image upload with preview
+- ✅ Contact form stores messages in DB
+- ✅ Deployed and live on Netlify
+- ✅ PostgreSQL on Neon (persistent, serverless)
+- ✅ Auto-deploy on every git push to main
+
+## 🔮 Potential Future Enhancements
+
+- [ ] Connect `www.marrok.org` DNS to Netlify
+- [ ] Blog section (new DB table + pages)
+- [ ] Project view counter (analytics)
+- [ ] Email notifications for new contact messages (Nodemailer)
+- [ ] Image CDN (Cloudinary) to replace local `/public/uploads/`
+- [ ] Dark/light mode toggle
+- [ ] Multiple language support (AR, FR, EN)
+- [ ] Project video demo embed
