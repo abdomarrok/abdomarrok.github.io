@@ -11,8 +11,10 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project, index }: ProjectCardProps) {
-  // Determine if it should be a large item in the grid based on index or property
   const isLarge = index === 0 || project.featured
+  const technologies: string[] = typeof project.technologies === "string"
+    ? JSON.parse(project.technologies)
+    : project.technologies ?? []
 
   return (
     <motion.div
@@ -72,13 +74,13 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
 
         {/* Tech Stack */}
         <div className="flex flex-wrap gap-2 mt-auto">
-          {project.technologies.slice(0, isLarge ? 6 : 3).map((tech: string) => (
+          {technologies.slice(0, isLarge ? 6 : 3).map((tech: string) => (
             <span key={tech} className="px-2 py-1 rounded bg-white/5 border border-white/10 text-[10px] font-medium text-slate-300">
               {tech}
             </span>
           ))}
-          {!isLarge && project.technologies.length > 3 && (
-            <span className="text-[10px] text-slate-500 font-medium">+{project.technologies.length - 3} more</span>
+          {!isLarge && technologies.length > 3 && (
+            <span className="text-[10px] text-slate-500 font-medium">+{technologies.length - 3} more</span>
           )}
         </div>
       </div>

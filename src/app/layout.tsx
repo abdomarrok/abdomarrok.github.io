@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Inter, Outfit } from "next/font/google";
 import AuthProvider from "@/components/providers/AuthProvider";
 import "./globals.css";
@@ -13,6 +14,7 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://abdomarrok.github.io"),
   title: "Marrok Abderrahmane | Full-Stack Software Engineer",
   description: "Senior Full-Stack Engineer specializing in Enterprise Desktop (JavaFX), Modern Web (Next.js), and 3D Graphics. Building high-performance solutions for global enterprises.",
   keywords: ["JavaFX", "Next.js 15", "React 19", "Spring Boot", "Full-Stack Engineer", "Algeria", "Software Architecture"],

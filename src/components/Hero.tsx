@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { ArrowRight, Code2, DesktopTower, Layout, Rocket } from "lucide-react"
+import { ArrowRight, Code2, Monitor, Layout, Rocket } from "lucide-react"
 
 export default function Hero() {
   return (

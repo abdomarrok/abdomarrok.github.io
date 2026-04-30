@@ -103,7 +103,9 @@ export default function AdminProjectsPage() {
                         </div>
                         <div>
                           <p className="text-white font-bold">{project.title}</p>
-                          <p className="text-slate-500 text-xs truncate max-w-[200px]">{project.technologies.join(", ")}</p>
+                          <p className="text-slate-500 text-xs truncate max-w-[200px]">
+                            {(typeof project.technologies === "string" ? JSON.parse(project.technologies) : project.technologies).join(", ")}
+                          </p>
                         </div>
                       </div>
                     </td>

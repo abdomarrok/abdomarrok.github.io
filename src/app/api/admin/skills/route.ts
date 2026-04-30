@@ -7,11 +7,8 @@ export async function GET() {
   const session = await getServerSession(authOptions)
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
 
-  const projects = await prisma.project.findMany({
-    include: { category: true },
-    orderBy: { order: "asc" },
-  })
-  return NextResponse.json(projects)
+  const skills = await prisma.skill.findMany({ orderBy: { order: "asc" } })
+  return NextResponse.json(skills)
 }
 
 export async function POST(req: Request) {
@@ -19,12 +16,6 @@ export async function POST(req: Request) {
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
 
   const body = await req.json()
-  const project = await prisma.project.create({
-    data: {
-      ...body,
-      technologies: JSON.stringify(body.technologies ?? []),
-      highlights: JSON.stringify(body.highlights ?? []),
-    },
-  })
-  return NextResponse.json(project, { status: 201 })
+  const skill = await prisma.skill.create({ data: body })
+  return NextResponse.json(skill, { status: 201 })
 }

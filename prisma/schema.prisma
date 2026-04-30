@@ -3,101 +3,145 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
+// ─── NextAuth required tables ───────────────────────────────────────────────
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  role          String    @default("editor")
+  accounts      Account[]
+  sessions      Session[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// ─── Portfolio content ───────────────────────────────────────────────────────
 
 model Project {
   id              String   @id @default(cuid())
   title           String
-  description     String   @db.Text
-  longDescription String?  @db.Text
-  
-  // Visual
-  imageUrl        String?
-  thumbnailUrl    String?
-  
-  // Categorization
-  categoryId      String
-  category        Category @relation(fields: [categoryId], references: [id])
-  technologies    String[] // Prisma supports scalar lists on PostgreSQL
-  
-  // Content
-  highlights      String[] // Key features
-  metrics         Json?    // { "lines_of_code": 5000, "team_size": 3 }
-  
-  // Links
-  liveUrl         String?
-  githubUrl       String?
-  demoUrl         String?
-  
-  // Status
-  featured        Boolean  @default(false)
-  published       Boolean  @default(true)
-  order           Int      @default(0) // Display order
-  
-  // Timestamps
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  description     String
+  longDescription String?
+
+  imageUrl     String?
+  thumbnailUrl String?
+
+  categoryId   String
+  category     Category @relation(fields: [categoryId], references: [id])
+  technologies String   @default("[]") // JSON array: ["React","Next.js"]
+
+  highlights String  @default("[]") // JSON array of key features
+  metrics    String? // JSON object: {"lines_of_code":5000}
+
+  liveUrl   String?
+  githubUrl String?
+  demoUrl   String?
+
+  featured  Boolean @default(false)
+  published Boolean @default(true)
+  order     Int     @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([categoryId])
 }
 
 model Category {
   id       String    @id @default(cuid())
-  name     String    @unique // "Desktop", "Web", "Full-Stack", "3D Graphics"
+  name     String    @unique
   slug     String    @unique
-  color    String?   // Color badge: #FF5733
+  color    String?
   projects Project[]
 }
 
 model Skill {
-  id          String   @id @default(cuid())
-  name        String   @unique
-  category    String   // "Frontend", "Backend", "Database", "Tools", "3D"
-  proficiency Int      // 1-5 scale
+  id          String  @id @default(cuid())
+  name        String  @unique
+  category    String
+  proficiency Int
   icon        String?
   description String?
   color       String?
-  order       Int      @default(0)
-  
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  order       Int     @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Experience {
   id          String    @id @default(cuid())
   title       String
   company     String?
-  type        String    // "job", "education", "achievement"
-  description String    @db.Text
+  type        String
+  description String
   startDate   DateTime
   endDate     DateTime?
   current     Boolean   @default(false)
-  
-  skills      String[]  // Related skills
-  order       Int       @default(0)
-  
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+
+  skills String @default("[]") // JSON array of skill names
+  order  Int    @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model ContactMessage {
-  id        String   @id @default(cuid())
-  name      String
-  email     String
-  subject   String
-  message   String   @db.Text
-  read      Boolean  @default(false)
-  
+  id      String  @id @default(cuid())
+  name    String
+  email   String
+  subject String
+  message String
+  read    Boolean @default(false)
+
   createdAt DateTime @default(now())
 }
 
-model AdminUser {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  password  String   // bcrypted
-  name      String?
-  role      String   @default("editor") // "admin", "editor"
-  
-  createdAt DateTime @default(now())
+model Setting {
+  key       String   @id
+  value     String
   updatedAt DateTime @updatedAt
 }

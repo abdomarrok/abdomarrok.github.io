@@ -11,15 +11,13 @@ const projectSchema = z.object({
   title: z.string().min(3, "Title is required"),
   description: z.string().min(10, "Description is required"),
   categoryId: z.string().min(1, "Category is required"),
-  technologies: z.string().transform((val) => val.split(",").map((s) => s.trim())),
+  technologies: z.string().min(1, "At least one technology required"),
   githubUrl: z.string().url().optional().or(z.literal("")),
   liveUrl: z.string().url().optional().or(z.literal("")),
   imageUrl: z.string().optional(),
   published: z.boolean().default(true),
   featured: z.boolean().default(false),
 })
-
-type ProjectFormValues = z.infer<typeof projectSchema>
 
 interface ProjectFormProps {
   initialData?: any
@@ -34,27 +32,34 @@ export default function ProjectForm({ initialData, categories }: ProjectFormProp
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ProjectFormValues>({
+  } = useForm({
     resolver: zodResolver(projectSchema),
     defaultValues: initialData ? {
       ...initialData,
-      technologies: initialData.technologies.join(", "),
+      technologies: (typeof initialData.technologies === "string"
+        ? JSON.parse(initialData.technologies)
+        : initialData.technologies ?? []
+      ).join(", "),
     } : {
       published: true,
       featured: false,
     },
   })
 
-  const onSubmit = async (data: ProjectFormValues) => {
+  const onSubmit = async (data: any) => {
     setIsLoading(true)
     try {
       const url = initialData 
         ? `/api/admin/projects/${initialData.id}` 
         : "/api/admin/projects"
       
+      const payload = {
+        ...data,
+        technologies: data.technologies.split(",").map((s: string) => s.trim()).filter(Boolean),
+      }
       const res = await fetch(url, {
         method: initialData ? "PUT" : "POST",
-        body: JSON.stringify(data),
+        body: JSON.stringify(payload),
         headers: { "Content-Type": "application/json" },
       })
 
@@ -83,7 +88,7 @@ export default function ProjectForm({ initialData, categories }: ProjectFormProp
                 {...register("title")}
                 className="w-full bg-slate-900 border border-slate-800 rounded-lg p-3 text-white focus:ring-2 focus:ring-primary/50 outline-none"
               />
-              {errors.title && <p className="text-red-500 text-xs mt-1">{errors.title.message}</p>}
+              {errors.title && <p className="text-red-500 text-xs mt-1">{String(errors.title.message)}</p>}
             </div>
 
             <div>
@@ -93,7 +98,7 @@ export default function ProjectForm({ initialData, categories }: ProjectFormProp
                 rows={5}
                 className="w-full bg-slate-900 border border-slate-800 rounded-lg p-3 text-white focus:ring-2 focus:ring-primary/50 outline-none"
               />
-              {errors.description && <p className="text-red-500 text-xs mt-1">{errors.description.message}</p>}
+              {errors.description && <p className="text-red-500 text-xs mt-1">{String(errors.description.message)}</p>}
             </div>
 
             <div>

@@ -2,15 +2,17 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { LayoutDashboard, Briefcase, Code, MessageSquare, LogOut, ChevronRight } from "lucide-react"
+import { LayoutDashboard, Briefcase, Code, MessageSquare, Clock, Settings, LogOut, ChevronRight } from "lucide-react"
 import { signOut } from "next-auth/react"
 import { cn } from "@/lib/utils"
 
 const adminLinks = [
-  { name: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
-  { name: "Projects", href: "/admin/projects", icon: Briefcase },
-  { name: "Skills", href: "/admin/skills", icon: Code },
-  { name: "Messages", href: "/admin/messages", icon: MessageSquare },
+  { name: "Dashboard",  href: "/admin/dashboard",  icon: LayoutDashboard },
+  { name: "Projects",   href: "/admin/projects",   icon: Briefcase },
+  { name: "Skills",     href: "/admin/skills",     icon: Code },
+  { name: "Experience", href: "/admin/experience", icon: Clock },
+  { name: "Messages",   href: "/admin/messages",   icon: MessageSquare },
+  { name: "Settings",   href: "/admin/settings",   icon: Settings },
 ]
 
 export default function AdminSidebar() {

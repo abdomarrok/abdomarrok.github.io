@@ -1,60 +1,95 @@
-"use client"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/lib/auth"
+import prisma from "@/lib/prisma"
+import { Briefcase, Code, MessageSquare, Clock } from "lucide-react"
+import Link from "next/link"
 
-import { useSession } from "next-auth/react"
-import { Users, Briefcase, Code, Eye } from "lucide-react"
+export default async function AdminDashboard() {
+  const session = await getServerSession(authOptions)
 
-export default function AdminDashboard() {
-  const { data: session } = useSession()
+  const [projectCount, skillCount, messageCount, unreadCount, recentMessages] = await Promise.all([
+    prisma.project.count(),
+    prisma.skill.count(),
+    prisma.contactMessage.count(),
+    prisma.contactMessage.count({ where: { read: false } }),
+    prisma.contactMessage.findMany({ take: 5, orderBy: { createdAt: "desc" } }),
+  ])
 
   const stats = [
-    { label: "Total Projects", value: "12", icon: Briefcase, color: "text-blue-500" },
-    { label: "Skills Listed", value: "10", icon: Code, color: "text-emerald-500" },
-    { label: "Portfolio Views", value: "1.2k", icon: Eye, color: "text-purple-500" },
-    { label: "Admin Users", value: "1", icon: Users, color: "text-orange-500" },
+    { label: "Total Projects", value: projectCount, icon: Briefcase, color: "text-blue-500", href: "/admin/projects" },
+    { label: "Skills Listed", value: skillCount, icon: Code, color: "text-emerald-500", href: "/admin/skills" },
+    { label: "Total Messages", value: messageCount, icon: MessageSquare, color: "text-purple-500", href: "/admin/messages" },
+    { label: "Unread Messages", value: unreadCount, icon: Clock, color: "text-orange-500", href: "/admin/messages" },
   ]
 
   return (
     <div className="p-10">
       <header className="mb-10">
-        <h1 className="text-3xl font-display font-bold text-white">Welcome back, {session?.user?.name || "Admin"}</h1>
-        <p className="text-slate-400 mt-2">Here is what&apos;s happening with your portfolio today.</p>
+        <h1 className="text-3xl font-display font-bold text-white">
+          Welcome back, {session?.user?.name?.split(" ")[0] ?? "Admin"}
+        </h1>
+        <p className="text-slate-400 mt-2">Here is what&apos;s happening with your portfolio.</p>
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
         {stats.map((stat) => {
           const Icon = stat.icon
           return (
-            <div key={stat.label} className="glass-card p-6 border-white/5 hover:border-white/10 transition-all">
-              <div className="flex items-center justify-between mb-4">
-                <div className={`p-2 rounded-lg bg-white/5 ${stat.color}`}>
-                  <Icon size={20} />
-                </div>
+            <Link
+              key={stat.label}
+              href={stat.href}
+              className="glass-card p-6 border-white/5 hover:border-white/10 transition-all"
+            >
+              <div className={`p-2 rounded-lg bg-white/5 ${stat.color} w-fit mb-4`}>
+                <Icon size={20} />
               </div>
               <p className="text-slate-400 text-sm">{stat.label}</p>
               <h3 className="text-3xl font-bold text-white mt-1">{stat.value}</h3>
-            </div>
+            </Link>
           )
         })}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="glass-card p-6 border-white/5">
-          <h3 className="text-xl font-bold text-white mb-6">Recent Projects</h3>
-          <div className="space-y-4">
-            {/* Placeholder for real projects */}
-            <p className="text-slate-500 text-sm">Project list integration coming next...</p>
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="text-xl font-bold text-white">Recent Messages</h3>
+            <Link href="/admin/messages" className="text-primary text-sm hover:underline">View all</Link>
+          </div>
+          <div className="space-y-3">
+            {recentMessages.length === 0 ? (
+              <p className="text-slate-500 text-sm">No messages yet.</p>
+            ) : (
+              recentMessages.map((msg) => (
+                <div key={msg.id} className="flex items-start gap-3 p-3 rounded-lg bg-white/5">
+                  <div className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${msg.read ? "bg-slate-600" : "bg-primary"}`} />
+                  <div className="min-w-0">
+                    <p className="text-white text-sm font-medium truncate">{msg.name}</p>
+                    <p className="text-slate-500 text-xs truncate">{msg.subject}</p>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
         </div>
 
         <div className="glass-card p-6 border-white/5">
           <h3 className="text-xl font-bold text-white mb-6">Quick Actions</h3>
           <div className="grid grid-cols-2 gap-4">
-            <button className="p-4 rounded-xl bg-white/5 border border-white/5 text-white hover:bg-primary/10 hover:border-primary/20 transition-all text-sm font-medium">
-              Add New Project
-            </button>
-            <button className="p-4 rounded-xl bg-white/5 border border-white/5 text-white hover:bg-primary/10 hover:border-primary/20 transition-all text-sm font-medium">
-              Edit Skills
-            </button>
+            {[
+              { label: "Add Project", href: "/admin/projects/new" },
+              { label: "Add Skill", href: "/admin/skills" },
+              { label: "View Messages", href: "/admin/messages" },
+              { label: "Settings", href: "/admin/settings" },
+            ].map((action) => (
+              <Link
+                key={action.label}
+                href={action.href}
+                className="p-4 rounded-xl bg-white/5 border border-white/5 text-white hover:bg-primary/10 hover:border-primary/20 transition-all text-sm font-medium text-center"
+              >
+                {action.label}
+              </Link>
+            ))}
           </div>
         </div>
       </div>

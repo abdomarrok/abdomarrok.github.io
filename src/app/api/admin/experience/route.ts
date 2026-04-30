@@ -7,11 +7,8 @@ export async function GET() {
   const session = await getServerSession(authOptions)
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
 
-  const projects = await prisma.project.findMany({
-    include: { category: true },
-    orderBy: { order: "asc" },
-  })
-  return NextResponse.json(projects)
+  const experience = await prisma.experience.findMany({ orderBy: { order: "asc" } })
+  return NextResponse.json(experience)
 }
 
 export async function POST(req: Request) {
@@ -19,12 +16,13 @@ export async function POST(req: Request) {
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
 
   const body = await req.json()
-  const project = await prisma.project.create({
+  const item = await prisma.experience.create({
     data: {
       ...body,
-      technologies: JSON.stringify(body.technologies ?? []),
-      highlights: JSON.stringify(body.highlights ?? []),
+      skills: JSON.stringify(body.skills ?? []),
+      startDate: new Date(body.startDate),
+      endDate: body.endDate ? new Date(body.endDate) : null,
     },
   })
-  return NextResponse.json(project, { status: 201 })
+  return NextResponse.json(item, { status: 201 })
 }
