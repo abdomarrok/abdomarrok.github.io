@@ -3,6 +3,8 @@ import Hero from "@/components/Hero"
 import ProjectGrid from "@/components/projects/ProjectGrid"
 import SkillsSection from "@/components/skills/SkillsSection"
 import ExperienceTimeline from "@/components/experience/ExperienceTimeline"
+import CertificationsSection from "@/components/certifications/CertificationsSection"
+import ContactSection from "@/components/contact/ContactSection"
 
 export default function Home() {
   return (
@@ -12,8 +14,8 @@ export default function Home() {
       <ProjectGrid />
       <SkillsSection />
       <ExperienceTimeline />
-      
-      {/* Placeholder for contact */}
+      <CertificationsSection />
+      <ContactSection />
     </div>
   )
 }

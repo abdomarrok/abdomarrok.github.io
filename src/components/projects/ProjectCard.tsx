@@ -85,10 +85,14 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
         </div>
       </div>
 
-      {/* Hover Arrow */}
-      <div className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity text-primary">
+      {/* Hover Arrow — links to detail page */}
+      <Link
+        href={`/projects/${project.id}`}
+        className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity text-primary"
+        title="View project"
+      >
         <ArrowUpRight size={24} />
-      </div>
+      </Link>
     </motion.div>
   )
 }

@@ -1,11 +1,11 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef, useCallback } from "react"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
-import { Save, X, Loader2, Image as ImageIcon } from "lucide-react"
+import { Save, X, Loader2, Image as ImageIcon, Upload, Trash2 } from "lucide-react"
 
 const projectSchema = z.object({
   title: z.string().min(3, "Title is required"),
@@ -26,13 +26,13 @@ interface ProjectFormProps {
 
 export default function ProjectForm({ initialData, categories }: ProjectFormProps) {
   const [isLoading, setIsLoading] = useState(false)
+  const [preview, setPreview] = useState<string>(initialData?.imageUrl ?? "")
+  const [uploading, setUploading] = useState(false)
+  const [dragOver, setDragOver] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
   const router = useRouter()
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm({
     resolver: zodResolver(projectSchema),
     defaultValues: initialData ? {
       ...initialData,
@@ -40,19 +40,49 @@ export default function ProjectForm({ initialData, categories }: ProjectFormProp
         ? JSON.parse(initialData.technologies)
         : initialData.technologies ?? []
       ).join(", "),
-    } : {
-      published: true,
-      featured: false,
-    },
+    } : { published: true, featured: false },
   })
+
+  const uploadFile = useCallback(async (file: File) => {
+    if (!file.type.startsWith("image/")) return
+    setUploading(true)
+    try {
+      const fd = new FormData()
+      fd.append("file", file)
+      const res = await fetch("/api/admin/upload", { method: "POST", body: fd })
+      if (!res.ok) throw new Error("Upload failed")
+      const { url } = await res.json()
+      setPreview(url)
+      setValue("imageUrl", url)
+    } catch {
+      alert("Upload failed. Check file size (max 2 MB) and type.")
+    } finally {
+      setUploading(false)
+    }
+  }, [setValue])
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) uploadFile(file)
+  }
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault()
+    setDragOver(false)
+    const file = e.dataTransfer.files?.[0]
+    if (file) uploadFile(file)
+  }
+
+  const clearImage = () => {
+    setPreview("")
+    setValue("imageUrl", "")
+    if (fileInputRef.current) fileInputRef.current.value = ""
+  }
 
   const onSubmit = async (data: any) => {
     setIsLoading(true)
     try {
-      const url = initialData 
-        ? `/api/admin/projects/${initialData.id}` 
-        : "/api/admin/projects"
-      
+      const url = initialData ? `/api/admin/projects/${initialData.id}` : "/api/admin/projects"
       const payload = {
         ...data,
         technologies: data.technologies.split(",").map((s: string) => s.trim()).filter(Boolean),
@@ -62,12 +92,11 @@ export default function ProjectForm({ initialData, categories }: ProjectFormProp
         body: JSON.stringify(payload),
         headers: { "Content-Type": "application/json" },
       })
-
       if (res.ok) {
         router.push("/admin/projects")
         router.refresh()
       }
-    } catch (err) {
+    } catch {
       console.error("Failed to save project")
     } finally {
       setIsLoading(false)
@@ -77,14 +106,15 @@ export default function ProjectForm({ initialData, categories }: ProjectFormProp
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Left Column: Basics */}
+
+        {/* Left Column */}
         <div className="space-y-6">
           <div className="glass-card p-6 border-white/5 space-y-4">
             <h3 className="text-lg font-bold text-white mb-4">Basic Information</h3>
-            
+
             <div>
               <label className="block text-sm font-medium text-slate-300 mb-2">Project Title</label>
-              <input 
+              <input
                 {...register("title")}
                 className="w-full bg-slate-900 border border-slate-800 rounded-lg p-3 text-white focus:ring-2 focus:ring-primary/50 outline-none"
               />
@@ -93,9 +123,9 @@ export default function ProjectForm({ initialData, categories }: ProjectFormProp
 
             <div>
               <label className="block text-sm font-medium text-slate-300 mb-2">Description</label>
-              <textarea 
+              <textarea
                 {...register("description")}
-                rows={5}
+                rows={4}
                 className="w-full bg-slate-900 border border-slate-800 rounded-lg p-3 text-white focus:ring-2 focus:ring-primary/50 outline-none"
               />
               {errors.description && <p className="text-red-500 text-xs mt-1">{String(errors.description.message)}</p>}
@@ -103,7 +133,7 @@ export default function ProjectForm({ initialData, categories }: ProjectFormProp
 
             <div>
               <label className="block text-sm font-medium text-slate-300 mb-2">Category</label>
-              <select 
+              <select
                 {...register("categoryId")}
                 className="w-full bg-slate-900 border border-slate-800 rounded-lg p-3 text-white focus:ring-2 focus:ring-primary/50 outline-none"
               >
@@ -117,12 +147,12 @@ export default function ProjectForm({ initialData, categories }: ProjectFormProp
 
           <div className="glass-card p-6 border-white/5 space-y-4">
             <h3 className="text-lg font-bold text-white mb-4">Links & Tech</h3>
-            
+
             <div>
               <label className="block text-sm font-medium text-slate-300 mb-2">Technologies (comma separated)</label>
-              <input 
+              <input
                 {...register("technologies")}
-                placeholder="React, Next.js, Tailwind..."
+                placeholder="React, Next.js, Tailwind…"
                 className="w-full bg-slate-900 border border-slate-800 rounded-lg p-3 text-white focus:ring-2 focus:ring-primary/50 outline-none"
               />
             </div>
@@ -130,75 +160,120 @@ export default function ProjectForm({ initialData, categories }: ProjectFormProp
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-slate-300 mb-2">GitHub URL</label>
-                <input 
-                  {...register("githubUrl")}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-lg p-3 text-white focus:ring-2 focus:ring-primary/50 outline-none"
-                />
+                <input {...register("githubUrl")} className="w-full bg-slate-900 border border-slate-800 rounded-lg p-3 text-white focus:ring-2 focus:ring-primary/50 outline-none" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-slate-300 mb-2">Live Demo URL</label>
-                <input 
-                  {...register("liveUrl")}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-lg p-3 text-white focus:ring-2 focus:ring-primary/50 outline-none"
-                />
+                <input {...register("liveUrl")} className="w-full bg-slate-900 border border-slate-800 rounded-lg p-3 text-white focus:ring-2 focus:ring-primary/50 outline-none" />
               </div>
             </div>
           </div>
         </div>
 
-        {/* Right Column: Assets & Status */}
+        {/* Right Column */}
         <div className="space-y-6">
           <div className="glass-card p-6 border-white/5 space-y-4">
             <h3 className="text-lg font-bold text-white mb-4">Project Image</h3>
-            
-            <div className="aspect-video rounded-xl bg-slate-900 border-2 border-dashed border-slate-800 flex flex-col items-center justify-center text-slate-500 hover:border-primary/50 hover:bg-slate-800/50 transition-all cursor-pointer">
-              <ImageIcon size={48} strokeWidth={1} className="mb-4" />
-              <p className="text-sm">Click to upload or drag and drop</p>
-              <p className="text-xs mt-1">PNG, JPG or WEBP (Max 2MB)</p>
-            </div>
-            
-            <input 
-              {...register("imageUrl")}
-              placeholder="Or enter image URL manually"
-              className="w-full bg-slate-900 border border-slate-800 rounded-lg p-3 text-white text-sm outline-none"
+
+            {/* Hidden file input */}
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/jpeg,image/png,image/webp,image/gif,image/svg+xml"
+              className="hidden"
+              onChange={handleFileChange}
             />
+
+            {preview ? (
+              <div className="relative rounded-xl overflow-hidden border border-white/10 aspect-video group">
+                <img src={preview} alt="Preview" className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    className="p-2.5 rounded-lg bg-white/10 text-white hover:bg-white/20 transition-all"
+                    title="Change image"
+                  >
+                    <Upload size={18} />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={clearImage}
+                    className="p-2.5 rounded-lg bg-red-500/20 text-red-400 hover:bg-red-500/30 transition-all"
+                    title="Remove image"
+                  >
+                    <Trash2 size={18} />
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div
+                onClick={() => fileInputRef.current?.click()}
+                onDragOver={(e) => { e.preventDefault(); setDragOver(true) }}
+                onDragLeave={() => setDragOver(false)}
+                onDrop={handleDrop}
+                className={`aspect-video rounded-xl border-2 border-dashed flex flex-col items-center justify-center cursor-pointer transition-all ${
+                  dragOver
+                    ? "border-primary bg-primary/5"
+                    : "border-slate-700 bg-slate-900 hover:border-primary/50 hover:bg-slate-800/50"
+                }`}
+              >
+                {uploading ? (
+                  <Loader2 size={36} className="animate-spin text-primary mb-3" />
+                ) : (
+                  <ImageIcon size={36} strokeWidth={1} className="text-slate-600 mb-3" />
+                )}
+                <p className="text-sm text-slate-400">
+                  {uploading ? "Uploading…" : "Click to upload or drag & drop"}
+                </p>
+                <p className="text-xs text-slate-600 mt-1">PNG, JPG, WEBP — max 2 MB</p>
+              </div>
+            )}
+
+            {/* Hidden imageUrl field keeps value in sync with react-hook-form */}
+            <input type="hidden" {...register("imageUrl")} />
+
+            <div>
+              <label className="block text-xs text-slate-500 mb-1">Or paste an image URL</label>
+              <input
+                placeholder="https://..."
+                className="w-full bg-slate-900 border border-slate-800 rounded-lg p-2.5 text-white text-sm outline-none"
+                value={preview}
+                onChange={(e) => {
+                  setPreview(e.target.value)
+                  setValue("imageUrl", e.target.value)
+                }}
+              />
+            </div>
           </div>
 
           <div className="glass-card p-6 border-white/5 space-y-4">
             <h3 className="text-lg font-bold text-white mb-4">Publishing</h3>
-            
-            <div className="flex items-center justify-between p-4 rounded-lg bg-white/5">
+
+            <label className="flex items-center justify-between p-4 rounded-lg bg-white/5 cursor-pointer">
               <div>
                 <p className="text-sm font-bold text-white">Publicly Visible</p>
                 <p className="text-xs text-slate-500">Show this project on the home page</p>
               </div>
               <input type="checkbox" {...register("published")} className="w-5 h-5 accent-primary" />
-            </div>
+            </label>
 
-            <div className="flex items-center justify-between p-4 rounded-lg bg-white/5">
+            <label className="flex items-center justify-between p-4 rounded-lg bg-white/5 cursor-pointer">
               <div>
                 <p className="text-sm font-bold text-white">Featured Project</p>
                 <p className="text-xs text-slate-500">Large layout in the Bento grid</p>
               </div>
               <input type="checkbox" {...register("featured")} className="w-5 h-5 accent-primary" />
-            </div>
+            </label>
           </div>
         </div>
       </div>
 
       <div className="flex items-center justify-end gap-4 pt-6 border-t border-slate-800">
-        <button 
-          type="button"
-          onClick={() => router.back()}
-          className="flex items-center gap-2 px-6 py-3 rounded-lg text-slate-400 hover:text-white transition-all"
-        >
+        <button type="button" onClick={() => router.back()} className="flex items-center gap-2 px-6 py-3 rounded-lg text-slate-400 hover:text-white transition-all">
           <X size={20} /> Cancel
         </button>
-        <button 
-          type="submit"
-          disabled={isLoading}
-          className="btn-primary py-3 px-10 disabled:opacity-50"
-        >
+        <button type="submit" disabled={isLoading} className="btn-primary py-3 px-10 disabled:opacity-50">
           {isLoading ? <Loader2 className="animate-spin" size={20} /> : <Save size={20} />}
           {initialData ? "Save Changes" : "Create Project"}
         </button>
