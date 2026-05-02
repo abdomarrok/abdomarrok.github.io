@@ -22,11 +22,22 @@ export async function PATCH(req: Request, { params }: Ctx) {
   const { id } = await params
   const body = await req.json()
   const data: Record<string, unknown> = { ...body }
+  
+  if (data.categoryId) {
+    data.category = { connect: { id: data.categoryId } }
+    delete data.categoryId
+  }
+  
   if (Array.isArray(body.technologies)) data.technologies = JSON.stringify(body.technologies)
   if (Array.isArray(body.highlights)) data.highlights = JSON.stringify(body.highlights)
 
-  const project = await prisma.project.update({ where: { id }, data })
-  return NextResponse.json(project)
+  try {
+    const project = await prisma.project.update({ where: { id }, data })
+    return NextResponse.json(project)
+  } catch (error: any) {
+    console.error("Failed to update project:", error)
+    return NextResponse.json({ error: error.message }, { status: 500 })
+  }
 }
 
 // keep PUT as alias for PATCH so ProjectForm still works

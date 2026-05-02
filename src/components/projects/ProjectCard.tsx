@@ -87,7 +87,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
 
       {/* Hover Arrow — links to detail page */}
       <Link
-        href={`/projects/${project.id}`}
+        href={`/work/${project.slug}`}
         className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity text-primary"
         title="View project"
       >

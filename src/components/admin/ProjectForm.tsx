@@ -14,9 +14,16 @@ const projectSchema = z.object({
   technologies: z.string().min(1, "At least one technology required"),
   githubUrl: z.string().url().optional().or(z.literal("")),
   liveUrl: z.string().url().optional().or(z.literal("")),
+  slug: z.string().min(1, "Slug is required"),
   imageUrl: z.string().optional(),
   published: z.boolean().default(true),
   featured: z.boolean().default(false),
+  challenge: z.string().optional(),
+  approach: z.string().optional(),
+  solution: z.string().optional(),
+  results: z.string().optional(),
+  testimonial: z.string().optional(),
+  highlights: z.string().optional(),
 })
 
 interface ProjectFormProps {
@@ -40,7 +47,17 @@ export default function ProjectForm({ initialData, categories }: ProjectFormProp
         ? JSON.parse(initialData.technologies)
         : initialData.technologies ?? []
       ).join(", "),
-    } : { published: true, featured: false },
+      highlights: (typeof initialData.highlights === "string"
+        ? JSON.parse(initialData.highlights)
+        : initialData.highlights ?? []
+      ).join(", "),
+      slug: initialData.slug || "",
+      challenge: initialData.challenge || "",
+      approach: initialData.approach || "",
+      solution: initialData.solution || "",
+      results: initialData.results || "",
+      testimonial: initialData.testimonial || "",
+    } : { published: true, featured: false, slug: "" },
   })
 
   const uploadFile = useCallback(async (file: File) => {
@@ -86,6 +103,7 @@ export default function ProjectForm({ initialData, categories }: ProjectFormProp
       const payload = {
         ...data,
         technologies: data.technologies.split(",").map((s: string) => s.trim()).filter(Boolean),
+        highlights: data.highlights ? data.highlights.split(",").map((s: string) => s.trim()).filter(Boolean) : [],
       }
       const res = await fetch(url, {
         method: initialData ? "PUT" : "POST",
@@ -95,9 +113,13 @@ export default function ProjectForm({ initialData, categories }: ProjectFormProp
       if (res.ok) {
         router.push("/admin/projects")
         router.refresh()
+      } else {
+        const errorData = await res.json()
+        alert(`Failed to save project: ${errorData.error || JSON.stringify(errorData)}`)
       }
-    } catch {
-      console.error("Failed to save project")
+    } catch (e) {
+      console.error("Failed to save project", e)
+      alert("Network error: Failed to reach the server.")
     } finally {
       setIsLoading(false)
     }
@@ -122,10 +144,10 @@ export default function ProjectForm({ initialData, categories }: ProjectFormProp
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-300 mb-2">Description</label>
+              <label className="block text-sm font-medium text-slate-300 mb-2">Description (Short)</label>
               <textarea
                 {...register("description")}
-                rows={4}
+                rows={3}
                 className="w-full bg-slate-900 border border-slate-800 rounded-lg p-3 text-white focus:ring-2 focus:ring-primary/50 outline-none"
               />
               {errors.description && <p className="text-red-500 text-xs mt-1">{String(errors.description.message)}</p>}
@@ -159,13 +181,57 @@ export default function ProjectForm({ initialData, categories }: ProjectFormProp
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">GitHub URL</label>
+                <label className="block text-sm font-medium text-slate-300 mb-2">GitHub URL <span className="text-slate-500 font-normal">(Optional)</span></label>
                 <input {...register("githubUrl")} className="w-full bg-slate-900 border border-slate-800 rounded-lg p-3 text-white focus:ring-2 focus:ring-primary/50 outline-none" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">Live Demo URL</label>
+                <label className="block text-sm font-medium text-slate-300 mb-2">Live Demo URL <span className="text-slate-500 font-normal">(Optional)</span></label>
                 <input {...register("liveUrl")} className="w-full bg-slate-900 border border-slate-800 rounded-lg p-3 text-white focus:ring-2 focus:ring-primary/50 outline-none" />
               </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-slate-300 mb-2">URL Slug</label>
+              <input
+                {...register("slug")}
+                placeholder="e.g. immo-lamis"
+                className="w-full bg-slate-900 border border-slate-800 rounded-lg p-3 text-white focus:ring-2 focus:ring-primary/50 outline-none"
+              />
+              {errors.slug && <p className="text-red-500 text-xs mt-1">{String(errors.slug.message)}</p>}
+            </div>
+          </div>
+          
+          <div className="glass-card p-6 border-white/5 space-y-4">
+            <h3 className="text-lg font-bold text-white mb-4">Case Study Details</h3>
+            
+            <div>
+              <label className="block text-sm font-medium text-slate-300 mb-2">The Challenge <span className="text-slate-500 font-normal">(Optional)</span></label>
+              <textarea {...register("challenge")} rows={3} className="w-full bg-slate-900 border border-slate-800 rounded-lg p-3 text-white focus:ring-2 focus:ring-primary/50 outline-none" />
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-slate-300 mb-2">Our Approach <span className="text-slate-500 font-normal">(Optional)</span></label>
+              <textarea {...register("approach")} rows={3} className="w-full bg-slate-900 border border-slate-800 rounded-lg p-3 text-white focus:ring-2 focus:ring-primary/50 outline-none" />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-slate-300 mb-2">The Solution <span className="text-slate-500 font-normal">(Optional)</span></label>
+              <textarea {...register("solution")} rows={3} className="w-full bg-slate-900 border border-slate-800 rounded-lg p-3 text-white focus:ring-2 focus:ring-primary/50 outline-none" />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-slate-300 mb-2">Key Highlights <span className="text-slate-500 font-normal">(Optional, comma separated)</span></label>
+              <input {...register("highlights")} placeholder="Feature 1, Feature 2..." className="w-full bg-slate-900 border border-slate-800 rounded-lg p-3 text-white focus:ring-2 focus:ring-primary/50 outline-none" />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-slate-300 mb-2">The Results <span className="text-slate-500 font-normal">(Optional)</span></label>
+              <textarea {...register("results")} rows={3} className="w-full bg-slate-900 border border-slate-800 rounded-lg p-3 text-white focus:ring-2 focus:ring-primary/50 outline-none" />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-slate-300 mb-2">Client Testimonial <span className="text-slate-500 font-normal">(Optional)</span></label>
+              <textarea {...register("testimonial")} rows={2} className="w-full bg-slate-900 border border-slate-800 rounded-lg p-3 text-white focus:ring-2 focus:ring-primary/50 outline-none" />
             </div>
           </div>
         </div>
@@ -234,7 +300,7 @@ export default function ProjectForm({ initialData, categories }: ProjectFormProp
             <input type="hidden" {...register("imageUrl")} />
 
             <div>
-              <label className="block text-xs text-slate-500 mb-1">Or paste an image URL</label>
+              <label className="block text-xs text-slate-500 mb-1">Or paste an image URL (Optional)</label>
               <input
                 placeholder="https://..."
                 className="w-full bg-slate-900 border border-slate-800 rounded-lg p-2.5 text-white text-sm outline-none"

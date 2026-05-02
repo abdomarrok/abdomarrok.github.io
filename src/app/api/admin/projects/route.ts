@@ -18,10 +18,11 @@ export async function POST(req: Request) {
   const session = await getServerSession(authOptions)
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
 
-  const body = await req.json()
+  const { categoryId, ...rest } = body
   const project = await prisma.project.create({
     data: {
-      ...body,
+      ...rest,
+      category: { connect: { id: categoryId } },
       technologies: JSON.stringify(body.technologies ?? []),
       highlights: JSON.stringify(body.highlights ?? []),
     },

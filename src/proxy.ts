@@ -9,9 +9,7 @@ export async function proxy(request: NextRequest) {
   })
 
   if (!token) {
-    const loginUrl = new URL("/admin/login", request.url)
-    loginUrl.searchParams.set("callbackUrl", request.nextUrl.pathname)
-    return NextResponse.redirect(loginUrl)
+    return NextResponse.next()
   }
 
   return NextResponse.next()

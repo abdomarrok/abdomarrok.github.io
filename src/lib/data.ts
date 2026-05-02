@@ -8,6 +8,13 @@ export async function getProjects() {
   })
 }
 
+export async function getProjectBySlug(slug: string) {
+  return await prisma.project.findUnique({
+    where: { slug },
+    include: { category: true },
+  })
+}
+
 export async function getCategories() {
   return await prisma.category.findMany({
     include: { _count: { select: { projects: true } } },
