@@ -62,9 +62,17 @@ model VerificationToken {
 
 model Project {
   id              String   @id @default(cuid())
+  slug            String   @unique @default(cuid())
   title           String
   description     String
   longDescription String?
+  
+  // Case Study fields
+  challenge       String?
+  approach        String?
+  solution        String?
+  results         String?
+  testimonial     String?
 
   imageUrl     String?
   thumbnailUrl String?

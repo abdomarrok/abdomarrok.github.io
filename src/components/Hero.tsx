@@ -28,12 +28,13 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-4xl md:text-7xl font-display font-black tracking-tight mb-6"
+          className="text-4xl md:text-6xl lg:text-7xl font-display font-black tracking-tight mb-6"
         >
-          Building High-Performance <br />
+          Enterprise-Quality <br className="hidden md:block" />
           <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-            Desktop & Web Software
+            Digital Products
           </span>
+          <br className="hidden md:block" /> for MENA SMBs
         </motion.h1>
 
         <motion.p
@@ -42,8 +43,8 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto mb-10 leading-relaxed"
         >
-          Specializing in JavaFX 17+, Spring Boot, and Next.js 15. <br className="hidden md:block" />
-          I bridge the gap between enterprise desktop reliability and modern web excellence.
+          <strong className="text-slate-200">Speed. Quality. Affordability. Partnership.</strong> We combine all four—unlike big agencies or freelancers. <br className="hidden md:block" />
+          Marrok builds digital products for ambitious French and Arabic-speaking businesses across North Africa and the Middle East. We move fast without cutting corners, understand your market, and deliver outcomes that matter: user engagement, revenue growth, competitive advantage.
         </motion.p>
 
         <motion.div
@@ -52,34 +53,15 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="flex flex-col md:flex-row items-center justify-center gap-4"
         >
-          <a href="#projects" className="btn-primary w-full md:w-auto px-8 py-4">
-            <Rocket size={20} /> View My Work
+          <a href="#contact" className="btn-primary w-full md:w-auto px-8 py-4">
+            <Rocket size={20} /> Let's Talk
           </a>
-          <a href="#contact" className="btn-outline w-full md:w-auto px-8 py-4 bg-white/5 backdrop-blur-sm border-white/10 text-white hover:bg-white/10">
-            Let&apos;s Talk <ArrowRight size={20} />
+          <a href="#work" className="btn-outline w-full md:w-auto px-8 py-4 bg-white/5 backdrop-blur-sm border-white/10 text-white hover:bg-white/10">
+            See Our Work <ArrowRight size={20} />
           </a>
         </motion.div>
 
-        {/* Tech Stack Pills */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="mt-20 flex flex-wrap justify-center gap-4 text-slate-500"
-        >
-          {[
-            { icon: <Code2 size={16} />, label: "JavaFX" },
-            { icon: <Layout size={16} />, label: "Next.js" },
-            { icon: <Layout size={16} />, label: "React" },
-            { icon: <Code2 size={16} />, label: "Spring Boot" },
-            { icon: <Rocket size={16} />, label: "NestJS" },
-          ].map((item) => (
-            <div key={item.label} className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/5 bg-white/5 hover:border-white/10 hover:text-slate-300 transition-all cursor-default">
-              {item.icon}
-              <span className="text-sm font-medium">{item.label}</span>
-            </div>
-          ))}
-        </motion.div>
+
       </div>
     </section>
   )

@@ -49,7 +49,7 @@ export default function ContactSection() {
   const field = "w-full bg-slate-900/60 border border-slate-800 rounded-xl p-3.5 text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/40 transition-all"
 
   return (
-    <section id="contact" className="py-24 relative overflow-hidden">
+    <section id="contact" className="py-12 md:py-20 w-full relative overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,#10b98108,transparent)]" />
 
       <div className="container mx-auto px-4 relative z-10">
@@ -60,10 +60,10 @@ export default function ContactSection() {
           className="flex flex-col items-center text-center mb-16"
         >
           <h2 className="text-sm font-bold tracking-[0.3em] text-primary uppercase mb-4">Contact</h2>
-          <h3 className="text-4xl md:text-5xl font-display font-black text-white">Let&apos;s Build Something</h3>
+          <h3 className="text-4xl md:text-5xl font-display font-black text-white">Let's Build Something Great</h3>
           <div className="w-20 h-1 bg-primary mt-6 rounded-full" />
           <p className="text-slate-400 mt-6 max-w-xl">
-            Available for freelance projects, consulting, and full-time opportunities. Let&apos;s talk.
+            Typically respond within 24 hours during business days. Currently: <strong className="text-primary">Available for new projects</strong>
           </p>
         </motion.div>
 
@@ -76,10 +76,9 @@ export default function ContactSection() {
             className="lg:col-span-2 flex flex-col justify-center gap-8"
           >
             <div>
-              <h4 className="text-xl font-bold text-white mb-2">Marrok Abderrahmane</h4>
+              <h4 className="text-xl font-bold text-white mb-2">Marrok Agency</h4>
               <p className="text-slate-400 text-sm leading-relaxed">
-                Full-Stack Software Engineer based in Algeria. Specializing in enterprise desktop
-                (JavaFX / Spring Boot) and modern web (Next.js / React).
+                Digital product agency for French and Arabic-speaking SMBs in MENA. We combine speed, quality, affordability, and partnership.
               </p>
             </div>
 
@@ -148,14 +147,21 @@ export default function ContactSection() {
                   </div>
 
                   <div>
-                    <label className="block text-sm text-slate-400 mb-1.5">Subject</label>
-                    <input
+                    <label className="block text-sm text-slate-400 mb-1.5">What brings you here?</label>
+                    <select
                       required
                       value={form.subject}
                       onChange={(e) => setForm({ ...form, subject: e.target.value })}
-                      placeholder="Project inquiry, collaboration..."
                       className={field}
-                    />
+                    >
+                      <option value="" disabled>Select an option...</option>
+                      <option value="New product idea">New product idea</option>
+                      <option value="Design help">Design help</option>
+                      <option value="Development">Development</option>
+                      <option value="Digital strategy">Digital strategy</option>
+                      <option value="Ongoing support">Ongoing support</option>
+                      <option value="Other">Other</option>
+                    </select>
                   </div>
 
                   <div>

@@ -1,37 +1,36 @@
 # Portfolio Project - Work Summary & Final Status
 
-**Last Updated:** April 30, 2026  
-**Project:** Marrok Abderrahmane Portfolio — Next.js 16 Full-Stack with Admin CMS  
-**Status:** ✅ LIVE IN PRODUCTION
+**Last Updated:** May 2, 2026  
+**Project:** Marrok Agency — Digital Product Agency for MENA SMBs  
+**Status:** 🚀 RELAUNCH IN PROGRESS (Phases 1-3 Complete)
 
 **Live URLs:**
 - Public Portfolio: https://marrok.netlify.app
-- Admin Panel: https://marrok.netlify.app/admin
 - Custom Domain: https://www.marrok.org (DNS pending)
+- Admin Panel: https://marrok.netlify.app/admin (Google OAuth Protected)
 
 ---
 
-## ✅ Everything Built & Deployed
+### Phase 1 — Rebranding & Navigation
+- [x] Renamed project to **Marrok Agency**
+- [x] Updated **Navbar** with new agency links: Home, Work, Services, About, Blog, Contact
+- [x] Changed all CTAs from "Hire Me" to **"Let's Talk"**
+- [x] Removed individual CV download links from the header to focus on agency positioning
 
-### Phase 1 — Foundation
-- [x] Next.js 16.2.4 + React 19 + TypeScript project
-- [x] Tailwind CSS 4 with custom design tokens (primary: emerald, secondary: blue, accent: orange)
-- [x] Prisma 6 ORM with PostgreSQL (Neon serverless)
-- [x] Full database schema with 8 tables
-- [x] Database seed with portfolio data
-- [x] Google OAuth via NextAuth.js v4 (passwordless login)
-- [x] `proxy.ts` (Next.js 16 middleware, replaces deprecated `middleware.ts`)
+### Phase 2 — Homepage Relaunch
+- [x] **Hero Section** — Updated with enterprise-quality messaging and 4-pillar sub-headline
+- [x] **Value Props** — Built 4-column grid (Speed, Quality, Affordability, Partnership)
+- [x] **Services Overview** — Built 2x2 grid highlighting Digital Strategy, Design, Dev, and End-to-End products
+- [x] **Work Preview** — Refactored portfolio grid to "Work We're Proud Of" with 3 featured projects
+- [x] **FAQ Section** — Built animated accordion with agency-specific Q&A
+- [x] **Final CTA** — Replaced contact form with high-intent "Ready to Build?" section
 
-### Phase 2 — Public Portfolio Pages
-- [x] **Navbar** — sticky, blur on scroll, mobile hamburger menu, CV download link
-- [x] **Hero** — animated gradient headline, tech stack pills, CTA buttons
-- [x] **Projects Grid** — bento layout from DB, category badges, tech tags, links to detail pages
-- [x] **Skills Section** — grouped by category, fetched from DB
-- [x] **Experience Timeline** — alternating layout, fetched from DB
-- [x] **Certifications** — static section (Coursera, NVIDIA, Udacity, Blue Array)
-- [x] **Contact Section** — working form → posts to `/api/public/contact` → stored in DB
-- [x] **Project Detail Page** — `/projects/[id]` with image, tech stack, highlights, links
-- [x] **Footer** — copyright
+### Phase 3 — Dedicated Agency Pages
+- [x] **Services Page (`/services`)** — Detailed breakdown of 4 core offerings with deliverables and timelines
+- [x] **Work Page (`/work`)** — Dedicated gallery for all case studies
+- [x] **About Page (`/about`)** — Origin story, beliefs, and integrated credentials (legacy CV sections)
+- [x] **Contact Page (`/contact`)** — Dedicated standalone page with updated "What brings you here?" dropdown
+- [x] **Routing** — Fully transitioned from hash-links (#) to absolute page routing (/)
 
 ### Phase 3 — Google Authentication
 - [x] Google OAuth 2.0 via NextAuth.js

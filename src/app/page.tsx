@@ -2,22 +2,22 @@ export const dynamic = "force-dynamic"
 
 import Navbar from "@/components/Navbar"
 import Hero from "@/components/Hero"
+import ValueProps from "@/components/ValueProps"
+import ServicesOverview from "@/components/ServicesOverview"
 import ProjectGrid from "@/components/projects/ProjectGrid"
-import SkillsSection from "@/components/skills/SkillsSection"
-import ExperienceTimeline from "@/components/experience/ExperienceTimeline"
-import CertificationsSection from "@/components/certifications/CertificationsSection"
-import ContactSection from "@/components/contact/ContactSection"
+import FaqSection from "@/components/FaqSection"
+import CtaSection from "@/components/CtaSection"
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
       <Hero />
+      <ValueProps />
+      <ServicesOverview />
       <ProjectGrid />
-      <SkillsSection />
-      <ExperienceTimeline />
-      <CertificationsSection />
-      <ContactSection />
+      <FaqSection />
+      <CtaSection />
     </div>
   )
 }

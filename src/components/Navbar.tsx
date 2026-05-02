@@ -6,10 +6,12 @@ import { Menu, X, Download, MessageSquare } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const navLinks = [
-  { name: "Projects", href: "#projects" },
-  { name: "Skills", href: "#skills" },
-  { name: "Experience", href: "#experience" },
-  { name: "Contact", href: "#contact" },
+  { name: "Home", href: "/" },
+  { name: "Work", href: "/work" },
+  { name: "Services", href: "/services" },
+  { name: "About", href: "/about" },
+  { name: "Blog", href: "/blog" },
+  { name: "Contact", href: "/contact" },
 ]
 
 export default function Navbar() {
@@ -56,16 +58,8 @@ export default function Navbar() {
             ))}
           </ul>
           <div className="flex items-center gap-3">
-            <Link href="#contact" className="btn-primary py-2 px-4 text-sm">
-              <MessageSquare size={16} /> Hire Me
-            </Link>
-            <Link 
-              href="/moderncvEnglish.pdf" 
-              target="_blank"
-              className="p-2 text-slate-400 hover:text-white transition-colors"
-              title="Download CV"
-            >
-              <Download size={20} />
+            <Link href="/contact" className="btn-primary py-2 px-4 text-sm gap-2">
+              <MessageSquare size={16} /> Let's Talk
             </Link>
           </div>
         </div>
@@ -95,11 +89,11 @@ export default function Navbar() {
               </li>
             ))}
             <Link
-              href="#contact"
-              className="btn-primary w-full"
+              href="/contact"
+              className="btn-primary w-full justify-center"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              Hire Me
+              Let's Talk
             </Link>
           </ul>
         </div>

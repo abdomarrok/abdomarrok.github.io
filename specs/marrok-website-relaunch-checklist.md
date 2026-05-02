@@ -533,13 +533,13 @@ Currently: [Available for new projects / Selective with new projects]"
 ### Tech Stack for Relaunch
 
 **Recommended:**
-- Framework: Next.js 15 (you already know it)
-- Styling: Tailwind CSS (fast, modern, scalable)
-- Content: MDX for blog posts (code + markdown)
-- Forms: Formspree or similar (for contact form)
-- Analytics: Vercel Analytics + Google Analytics
-- CMS: Simple file-based (markdown in git) or Sanity.io (if you want visual CMS)
-- Hosting: Vercel (optimal for Next.js, handles scaling)
+- [x] Framework: Next.js 16 (built)
+- [x] Styling: Tailwind CSS 4 (built)
+- [ ] Content: MDX for blog posts (pending Phase 4)
+- [x] Forms: Internal API + DB (built)
+- [x] Auth: Google OAuth (built)
+- [x] DB: Prisma + PostgreSQL (built)
+- [x] Hosting: Netlify (built)
 
 **Estimated effort:**
 - Design (Figma mockups): 20 hours
@@ -603,16 +603,16 @@ Currently: [Available for new projects / Selective with new projects]"
 ## CONTENT CHECKLIST
 
 ### Before Launch
-- [ ] Define all page headlines
-- [ ] Write all page copy (2-3 drafts minimum)
-- [ ] Gather/create all images
-- [ ] Define CTAs for each page
+- [x] Define all page headlines
+- [x] Write all page copy (2-3 drafts minimum)
+- [x] Gather/create all images
+- [x] Define CTAs for each page
 - [ ] Write 3+ case studies in detail
-- [ ] Collect client testimonials
+- [x] Collect client testimonials
 - [ ] Create 5-8 blog post outlines
-- [ ] Set up analytics
-- [ ] Set up contact form
-- [ ] Create robots.txt + sitemap
+- [x] Set up analytics
+- [x] Set up contact form
+- [x] Create robots.txt + sitemap
 - [ ] Set up 301 redirects (if applicable)
 
 ### Launch Day
