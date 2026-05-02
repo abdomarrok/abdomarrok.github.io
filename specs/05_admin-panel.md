@@ -3,7 +3,7 @@
 
 **Updated:** April 28, 2026  
 **Scope:** Portfolio Website + Admin Dashboard  
-**Recommended Stack:** Next.js 15 Full-Stack (Option C Required)
+**Recommended Stack:** Next.js 16 Full-Stack (Option C Required)
 
 ---
 
@@ -614,7 +614,7 @@ abdomarrok-portfolio/
 ### Phase 1: Setup & Database (1 week)
 **Goal:** Get Next.js, Prisma, and PostgreSQL running
 
-- [ ] Initialize Next.js 15 project with TypeScript
+- [ ] Initialize Next.js 16 project with TypeScript
 - [ ] Install Tailwind CSS, Prisma, @auth/nextjs
 - [ ] Set up PostgreSQL database (local + Vercel)
 - [ ] Create Prisma schema (all models above)
@@ -754,7 +754,7 @@ abdomarrok-portfolio/
 ## 📦 Full Tech Stack
 
 ### Frontend
-- ✅ **Next.js 15** - Full-stack React framework
+- ✅ **Next.js 16** - Full-stack React framework
 - ✅ **React 19** - UI components
 - ✅ **TypeScript** - Type safety
 - ✅ **Tailwind CSS 4** - Styling
