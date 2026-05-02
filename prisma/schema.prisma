@@ -106,35 +106,18 @@ model Category {
   projects Project[]
 }
 
-model Skill {
-  id          String  @id @default(cuid())
-  name        String  @unique
-  category    String
-  proficiency Int
-  icon        String?
-  description String?
-  color       String?
-  order       Int     @default(0)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Experience {
-  id          String    @id @default(cuid())
+model Post {
+  id          String   @id @default(cuid())
+  slug        String   @unique
   title       String
-  company     String?
-  type        String
-  description String
-  startDate   DateTime
-  endDate     DateTime?
-  current     Boolean   @default(false)
-
-  skills String @default("[]") // JSON array of skill names
-  order  Int    @default(0)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  excerpt     String
+  content     String   // Markdown string
+  coverImage  String?
+  published   Boolean  @default(false)
+  author      String   @default("Marrok")
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model ContactMessage {

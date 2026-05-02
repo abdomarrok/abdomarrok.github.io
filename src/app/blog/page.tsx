@@ -1,11 +1,14 @@
-import { getAllPosts } from "@/lib/mdx"
+import prisma from "@/lib/prisma"
 import Navbar from "@/components/Navbar"
 import CtaSection from "@/components/CtaSection"
 import Link from "next/link"
 import { Calendar, Tag, ArrowRight } from "lucide-react"
 
-export default function BlogPage() {
-  const posts = getAllPosts()
+export default async function BlogPage() {
+  const posts = await prisma.post.findMany({
+    where: { published: true },
+    orderBy: { createdAt: 'desc' }
+  })
 
   return (
     <div className="flex flex-col min-h-screen pt-24 bg-slate-950">
@@ -39,20 +42,20 @@ export default function BlogPage() {
                     <div className="flex items-center gap-4 text-xs font-medium text-slate-500 mb-6">
                       <span className="flex items-center gap-1.5 bg-white/5 px-2.5 py-1 rounded-full">
                         <Calendar size={14} />
-                        {new Date(post.meta.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                        {new Date(post.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                       </span>
                       <span className="flex items-center gap-1.5 bg-primary/10 text-primary px-2.5 py-1 rounded-full">
                         <Tag size={14} />
-                        {post.meta.category}
+                        Insight
                       </span>
                     </div>
                     
                     <h2 className="text-2xl font-bold font-display text-white mb-4 group-hover:text-primary transition-colors">
-                      {post.meta.title}
+                      {post.title}
                     </h2>
                     
                     <p className="text-slate-400 leading-relaxed mb-8 flex-grow line-clamp-3">
-                      {post.meta.excerpt}
+                      {post.excerpt}
                     </p>
                     
                     <span className="inline-flex items-center gap-2 text-sm font-medium text-slate-300 group-hover:text-white transition-colors mt-auto">

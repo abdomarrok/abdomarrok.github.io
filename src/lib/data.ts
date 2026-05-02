@@ -21,14 +21,3 @@ export async function getCategories() {
   })
 }
 
-export async function getSkills() {
-  return await prisma.skill.findMany({
-    orderBy: { order: "asc" },
-  })
-}
-
-export async function getExperience() {
-  return await prisma.experience.findMany({
-    orderBy: { order: "asc" },
-  })
-}

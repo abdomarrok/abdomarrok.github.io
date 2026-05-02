@@ -1,7 +1,5 @@
 import Navbar from "@/components/Navbar"
 import CtaSection from "@/components/CtaSection"
-import ExperienceTimeline from "@/components/legacy-v2/experience/ExperienceTimeline"
-import CertificationsSection from "@/components/legacy-v2/certifications/CertificationsSection"
 import { CheckCircle2, User, Rocket } from "lucide-react"
 
 export default function AboutPage() {
@@ -113,14 +111,12 @@ export default function AboutPage() {
 
       {/* Credentials (Legacy) */}
       <div className="bg-slate-900/30 border-t border-white/5">
-        <div className="container mx-auto px-4 max-w-5xl text-center pt-24 pb-8">
+        <div className="container mx-auto px-4 max-w-5xl text-center pt-24 pb-24">
           <h2 className="text-3xl font-display font-bold text-white mb-4">
-            Our Credentials
+            Our Experience
           </h2>
           <p className="text-lg text-slate-400">5+ years building digital products. 100K+ users across platforms.</p>
         </div>
-        <ExperienceTimeline />
-        <CertificationsSection />
       </div>
 
       <CtaSection />

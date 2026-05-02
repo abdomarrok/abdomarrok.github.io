@@ -9,8 +9,8 @@ import { cn } from "@/lib/utils"
 const adminLinks = [
   { name: "Dashboard",  href: "/admin/dashboard",  icon: LayoutDashboard },
   { name: "Projects",   href: "/admin/projects",   icon: Briefcase },
-  { name: "Skills",     href: "/admin/skills",     icon: Code },
-  { name: "Experience", href: "/admin/experience", icon: Clock },
+  { name: "Categories", href: "/admin/categories", icon: LayoutDashboard },
+  { name: "Blog Posts", href: "/admin/blog",       icon: Code },
   { name: "Messages",   href: "/admin/messages",   icon: MessageSquare },
   { name: "Settings",   href: "/admin/settings",   icon: Settings },
 ]

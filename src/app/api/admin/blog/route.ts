@@ -7,25 +7,27 @@ export async function GET() {
   const session = await getServerSession(authOptions)
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
 
-  const projects = await prisma.project.findMany({
-    include: { category: true },
-    orderBy: { order: "asc" },
+  const posts = await prisma.post.findMany({
+    orderBy: { createdAt: 'desc' }
   })
-  return NextResponse.json(projects)
+  return NextResponse.json(posts)
 }
 
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions)
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+
   const body = await req.json()
-  const { categoryId, ...rest } = body
-  const project = await prisma.project.create({
+  const post = await prisma.post.create({
     data: {
-      ...rest,
-      category: { connect: { id: categoryId } },
-      technologies: JSON.stringify(body.technologies ?? []),
-      highlights: JSON.stringify(body.highlights ?? []),
+      title: body.title,
+      slug: body.slug,
+      excerpt: body.excerpt,
+      content: body.content,
+      coverImage: body.coverImage,
+      published: body.published,
+      author: body.author,
     },
   })
-  return NextResponse.json(project, { status: 201 })
+  return NextResponse.json(post)
 }

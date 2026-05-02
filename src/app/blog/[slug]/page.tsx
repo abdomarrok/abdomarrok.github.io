@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation"
-import { getPostBySlug } from "@/lib/mdx"
+import prisma from "@/lib/prisma"
 import Navbar from "@/components/Navbar"
 import CtaSection from "@/components/CtaSection"
 import Link from "next/link"
@@ -30,8 +30,9 @@ const mdxComponents = {
   ),
 }
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
-  const post = getPostBySlug(params.slug)
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const post = await prisma.post.findUnique({ where: { slug } })
 
   if (!post) {
     notFound()
@@ -54,18 +55,18 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           <div className="flex items-center justify-center gap-4 text-sm font-medium text-slate-500 mb-8">
             <span className="flex items-center gap-1.5 bg-white/5 px-3 py-1.5 rounded-full">
               <Calendar size={16} />
-              {new Date(post.meta.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+              {new Date(post.createdAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
             </span>
             <span className="flex items-center gap-1.5 bg-primary/10 text-primary px-3 py-1.5 rounded-full">
               <Tag size={16} />
-              {post.meta.category}
+              Insight
             </span>
           </div>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-black text-white mb-8 tracking-tight leading-tight">
-            {post.meta.title}
+            {post.title}
           </h1>
           <p className="text-xl md:text-2xl text-slate-400 leading-relaxed max-w-2xl mx-auto italic">
-            {post.meta.excerpt}
+            {post.excerpt}
           </p>
         </header>
 

@@ -9,19 +9,20 @@ import Link from "next/link"
 export default async function AdminDashboard() {
   const session = await getServerSession(authOptions)
 
-  const [projectCount, skillCount, messageCount, unreadCount, recentMessages] = await Promise.all([
+  const [projectCount, categoryCount, postCount, messageCount, unreadCount, recentMessages] = await Promise.all([
     prisma.project.count(),
-    prisma.skill.count(),
+    prisma.category.count(),
+    prisma.post.count(),
     prisma.contactMessage.count(),
     prisma.contactMessage.count({ where: { read: false } }),
     prisma.contactMessage.findMany({ take: 5, orderBy: { createdAt: "desc" } }),
   ])
 
   const stats = [
-    { label: "Total Projects", value: projectCount, icon: Briefcase, color: "text-blue-500", href: "/admin/projects" },
-    { label: "Skills Listed", value: skillCount, icon: Code, color: "text-emerald-500", href: "/admin/skills" },
-    { label: "Total Messages", value: messageCount, icon: MessageSquare, color: "text-purple-500", href: "/admin/messages" },
-    { label: "Unread Messages", value: unreadCount, icon: Clock, color: "text-orange-500", href: "/admin/messages" },
+    { label: "Projects", value: projectCount, icon: Briefcase, color: "text-blue-500", href: "/admin/projects" },
+    { label: "Categories", value: categoryCount, icon: Code, color: "text-emerald-500", href: "/admin/categories" },
+    { label: "Blog Posts", value: postCount, icon: Clock, color: "text-orange-500", href: "/admin/blog" },
+    { label: "Messages", value: messageCount, icon: MessageSquare, color: "text-purple-500", href: "/admin/messages" },
   ]
 
   return (
@@ -80,7 +81,7 @@ export default async function AdminDashboard() {
           <div className="grid grid-cols-2 gap-4">
             {[
               { label: "Add Project", href: "/admin/projects/new" },
-              { label: "Add Skill", href: "/admin/skills" },
+              { label: "Write Post", href: "/admin/blog/new" },
               { label: "View Messages", href: "/admin/messages" },
               { label: "Settings", href: "/admin/settings" },
             ].map((action) => (
